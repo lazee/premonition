@@ -4,6 +4,10 @@ Premonition is a [Jekyll](https://jekyllrb.com/) extension that makes it possibl
 It recognizes a special header in [block quotes](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes) and converts then into html before the Markdown parser
 are run. As of now it only supports the [RedCarpet Markdown parser](https://github.com/vmg/redcarpet), but Kramdown support might be added in the future if requested.
 
+<p align="center">
+<img src="https://github.com/amedia/premonition/blob/master/screen.png" height="250"/>
+</p>
+
 ## Features
 
  * Highly customizable
