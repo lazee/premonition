@@ -33,7 +33,7 @@ As Premonition depends on Redcarpet, you must make sure this dependency is added
 
 ```yaml
 markdown: redcarpet
-
+```
 
 Then add Premonition to `plugins` inside the Jekyll config file (`_config.yml`):
 
