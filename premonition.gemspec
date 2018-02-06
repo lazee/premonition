@@ -8,8 +8,7 @@ Gem::Specification.new do |s|
   s.homepage = 'http://github.com/amedia/premonition'
   s.platform = Gem::Platform::RUBY
   s.summary = 'Jekyll generator that will convert special block quotes into message boxes.'
-  s.files = `git ls-files`.split("
-  ")
+  s.files = Dir['LICENSE', 'README.md', 'lib/**/*']
   s.require_paths << 'lib'
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
   s.has_rdoc = false
