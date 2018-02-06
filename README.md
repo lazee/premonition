@@ -29,7 +29,11 @@ group :jekyll_plugins do
   gem "premonition", "~> 1.0.0"
 end
 ```
-As Premonition depends on Redcarpet, you must make sure this dependency is added as well.
+As Premonition depends on Redcarpet, you must make sure this dependency is added as well. Also make sure that you have configured Jekyll to use Redcarpet:
+
+```yaml
+markdown: redcarpet
+
 
 Then add Premonition to `plugins` inside the Jekyll config file (`_config.yml`):
 
