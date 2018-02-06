@@ -51,9 +51,9 @@ special format to activate the transformation.
 
 The type can be any letter string. It is used to map a block to type configuration. This enables
 you to customize the look of different types. Like *Info*, *Warning* and *Error* boxes for example.
-By default the type will be added to the surrounding `<div>` block of the generated html code.
+By default the type will be added as a class to the surrounding `<div>` block of the generated html code.
 
-The *Title* is as you might have guessed the title that will be added to the block.
+The *Title* is, as you might have guessed, the title that will be added to the block.
 
 Example:
 
