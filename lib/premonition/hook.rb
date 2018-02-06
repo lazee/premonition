@@ -69,7 +69,14 @@ module Jekyll
           type: b[:type]
         }
         v[:header] = header(t[:title]) % v
-        t[:template] % v
+        clean_markup(t[:template] % v)
+      end
+
+      def clean_markup(r)
+        br = '<br>' * 2
+        r = r.gsub('<p>', '').gsub('</p>', br).strip
+        r = r.gsub(br, '') if r.scan(/<br><br>/m).size == 1
+        r
       end
 
       def header(t)
