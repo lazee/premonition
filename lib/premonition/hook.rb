@@ -16,33 +16,40 @@ module Jekyll
 
       def generate(site)
         @resources = Resources.new site
-        add_hook
+        Hooks.register :documents, :pre_render do |doc|
+          adder(doc)
+        end
+        Hooks.register :pages, :pre_render do |page|
+          adder(page)
+        end
+        Hooks.register :posts, :pre_render do |page|
+          adder(page)
+        end
       end
 
-      def add_hook
-        Hooks.register :documents, :pre_render do |doc|
-          o = []
-          b = nil
-          doc.content.each_line do |l|
-            if blockquote?(l) && empty_block?(b)
-              if (m = l.match(/^\>\s+([a-z]+)\s+\"(.*)\"$/i))
-                y, t = m.captures
-                b = { title: t.strip, type: y.strip.downcase, content: [] }
-              else
-                o << l
-              end
-            elsif blockquote?(l) && !empty_block?(b)
-              b[:content] << l.match(/^\>(.*)$/i).captures[0].strip
+      def adder(doc)
+        o = []
+        b = nil
+        doc.content.each_line do |l|
+          if blockquote?(l) && empty_block?(b)
+            if (m = l.match(/^\>\s+([a-z]+)\s+\"(.*)\"$/i))
+              y, t = m.captures
+              b = { title: t.strip, type: y.strip.downcase, content: [] }
             else
-              if !blockquote?(l) && !empty_block?(b)
-                o << render_block(b)
-                b = nil
-              end
               o << l
             end
+          elsif blockquote?(l) && !empty_block?(b)
+            b[:content] << l.match(/^\>(.*)$/i).captures[0].strip
+          else
+            if !blockquote?(l) && !empty_block?(b)
+              o << render_block(b)
+              b = nil
+            end
+            o << l
           end
-          doc.content = o.join
         end
+        o << render_block(b) unless empty_block?(b)
+        doc.content = o.join
       end
 
       def blockquote?(l)
