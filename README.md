@@ -58,7 +58,7 @@ Example:
 > The body of the warning goes here. Premonition also allow you to write Markdown inside the block.
 ~~~
 
-This will be converted into something like this bu Premonition
+This will be converted into something like this by Premonition
 
 ~~~html
 <div class="premonition warning">
