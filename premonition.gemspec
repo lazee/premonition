@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'bundler', '~> 1.5'
   s.add_development_dependency 'jekyll', '>= 2.0', '< 3.0'
+  s.add_development_dependency 'mocha'
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec', '~> 3.0'
+  s.add_development_dependency 'turn'
 end
