@@ -2,6 +2,8 @@
 
 **Note: This is the README for the upcoming v2. The old v1.x README can still be found [here](https://github.com/amedia/premonition/tree/v1.x). v2 will be released sometime in February 2018**
 
+**You can already now check out v2 by including this version into your Gemfile: v2.0.0.pre.BETA1**
+
 Premonition is a [Jekyll](https://jekyllrb.com/) extension that makes it possible to add block-styled Markdown side content to your documentation, for example summaries, notes, hints or warnings.
 
 It looks for a custom header on the first line of [block quotes](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes) and converts it into html markup before the Jekyll Markdown parser are executed. As of now we only support the [RedCarpet Markdown parser](https://github.com/vmg/redcarpet), but Kramdown support might be added in the future if requested.
