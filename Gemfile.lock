@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    premonition (1.0.2)
+    premonition (2.0.0.pre.BETA1)
 
 GEM
   remote: https://rubygems.org/

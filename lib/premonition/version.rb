@@ -1,5 +1,5 @@
 module Jekyll
   module Premonition
-    VERSION = '1.0.2'.freeze
+    VERSION = '2.0.0-BETA1'.freeze
   end
 end
