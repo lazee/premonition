@@ -2,7 +2,7 @@
 
 **Note: This is the README for the upcoming v2. The old v1.x README can still be found [here](https://github.com/amedia/premonition/tree/v1.x). v2 will be released sometime in February 2018**
 
-**You can already now check out v2 by including this version into your Gemfile: v2.0.0.pre.BETA1.**
+**You can already now check out v2 by including this version into your Gemfile: v2.0.0.pre.BETA2.**
 
 **DEMO https://amedia.github.io/premonition-demo/**
 
