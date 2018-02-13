@@ -1,0 +1,69 @@
+.premonition {
+  $default-color: #5bc0de;
+  $default-light-color: #e3edf2;
+  $info-color: #50af51;
+  $info-light-color: #f3f8f3;
+  $warning-color: #f0ad4e;
+  $warning-light-color: #fcf8f2;
+  $error-color: #d9534f;
+  $error-light-color: #fdf7f7;
+  $content-color: rgba(0,0,0,0.5);
+
+  display: grid;
+  grid-template-columns: 43px auto;
+  padding-top: 13px;
+  padding-bottom: 6px;
+  margin: 30px 0 30px 0;
+
+  background-color: $default-light-color;
+  border-left: 4px solid $default-color;
+  color: $default-color;
+
+  .header {
+    font-weight: 700;
+    font-size: 15px;
+    color: $default-color;
+  }
+
+  .fa {
+    font-size: 18px;
+    opacity: .3;
+    padding-top: 2px;
+    padding-left: 20px;
+  }
+
+  .content {
+    color: $content-color;
+    padding-right: 40px;
+  }
+
+  &.info {
+    background-color: $info-light-color;
+    color: $info-color;
+    border-color: $info-color;
+
+    .header {
+      color: $info-color;
+    }
+  }
+
+  &.warning {
+    background-color: $warning-light-color;
+    color: $warning-color;
+    border-color: $warning-color;
+
+    .header {
+      color: $warning-color;
+    }
+  }
+
+  &.error {
+    background-color: $error-light-color;
+    color: $error-color;
+    border-color: $error-color;
+
+    .header {
+      color: $error-color;
+    }
+  }
+}

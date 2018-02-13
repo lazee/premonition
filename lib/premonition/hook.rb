@@ -15,7 +15,7 @@ module Jekyll
       end
 
       def generate(site)
-        @resources = Resources.new site
+        @resources = Resources.new site.config
         Hooks.register :documents, :pre_render do |doc|
           adder(doc)
         end
@@ -61,37 +61,32 @@ module Jekyll
       end
 
       def render_block(b)
-        t = create_templ(b)
+        t = find_templ(b)
         c = "#{@resources.renderer.render(b[:content].join("\n"))}\n\n"
-        v = {
-          title: t[:title],
-          content: c,
-          type: b[:type]
-        }
-        v[:header] = header(t[:title]) % v
-        clean_markup(t[:template] % v)
+        template = Liquid::Template.parse(t[:template], error_mode: :strict)
+        template.render(
+          {
+            'header' => !t[:title].nil?,
+            'title' => t[:title],
+            'content' => c,
+            'type' => b[:type],
+            'meta' => t[:meta]
+          },
+          strict_variables: true
+        )
       end
 
-      def clean_markup(r)
-        br = '<br>' * 2
-        r = r.gsub('<p>', '').gsub('</p>', br).strip
-        r = r.gsub(br, '') if r.scan(/<br><br>/m).size == 1
-        r
-      end
-
-      def header(t)
-        t.empty? ? '' : @resources.config[:default][:header_template]
-      end
-
-      def create_templ(b)
+      def find_templ(b)
         c = {
           template: @resources.config[:default][:template],
-          title: @resources.config[:default][:title]
+          title: @resources.config[:default][:title],
+          meta: @resources.config[:default][:meta]
         }
         @resources.config[:types].each do |t|
           next unless t[:id] == b[:type]
-          c[:title] = b[:title].empty? ? t[:default_title] : b[:title]
-          c[:template] = t[:template]
+          c[:title] = b[:title].empty? || b[:title].nil? ? t[:default_title] : b[:title]
+          c[:template] = t[:template] unless t[:template].nil?
+          c[:meta] = c[:meta].merge(t[:meta]) unless t[:meta].nil?
         end
         c
       end

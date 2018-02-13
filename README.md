@@ -1,11 +1,10 @@
 # Premonition
 Premonition is a [Jekyll](https://jekyllrb.com/) extension that makes it possible to add block-styled Markdown side content to your documentation, for example summaries, notes, hints or warnings.
 
-It recognizes a special header in [block quotes](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes) and converts then into html before the Markdown parser
-are run. As of now it only supports the [RedCarpet Markdown parser](https://github.com/vmg/redcarpet), but Kramdown support might be added in the future if requested.
+It looks for a custom header on the first line of [block quotes](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes) and converts it into html markup before the Jekyll Markdown parser are executed. As of now we only support the [RedCarpet Markdown parser](https://github.com/vmg/redcarpet), but Kramdown support might be added in the future if requested.
 
 <p align="center">
-<img src="https://github.com/amedia/premonition/blob/master/screen.png" height="250"/>
+<img src="https://github.com/amedia/premonition/raw/master/screen.png" height="450"/>
 </p>
 
 ## Features
@@ -13,11 +12,15 @@ are run. As of now it only supports the [RedCarpet Markdown parser](https://gith
  * Highly customizable
  * Non-intrusive - Content are rendered as block-quotes by any other parser
  * Easy to install
+ * Comes with a stylesheet (Sass/Css) you can embed onto your site.
 
 ## Requirements
 
  * Redcarpet
  * Jekyll 3.7.x or higher
+
+ If you want to use the default template and stylesheet, you should also
+ add Font Awesome to your site.
 
 ## Installation
 
@@ -26,7 +29,7 @@ Add the following line to your `Gemfile` inside your Jekyll project. It should l
 ```
 gem "redcarpet"
 group :jekyll_plugins do
-  gem "premonition", "~> 1.0.0"
+  gem "premonition", "~> 2.0.0"
 end
 ```
 As Premonition depends on Redcarpet, you must make sure this dependency is added as well. Also make sure that you have configured Jekyll to use Redcarpet:
@@ -35,7 +38,7 @@ As Premonition depends on Redcarpet, you must make sure this dependency is added
 markdown: redcarpet
 ```
 
-Then add Premonition to `plugins` inside the Jekyll config file (`_config.yml`):
+Then finally add Premonition to `plugins` inside the Jekyll config file (`_config.yml`):
 
 ```yaml
 plugins:
@@ -49,9 +52,9 @@ special format to activate the transformation.
 
 `> [type] "Title"`
 
-The type can be any letter string. It is used to map a block to type configuration. This enables
-you to customize the look of different types. Like *Info*, *Warning* and *Error* boxes for example.
-By default the type will be added as a class to the surrounding `<div>` block of the generated html code.
+The type can be any letter string. It is used to map a block to its type configuration and/or css.
+By default the type will be added as a class to the outer `<div>` of the
+generated markup.
 
 The *Title* is, as you might have guessed, the title that will be added to the block.
 
@@ -59,18 +62,16 @@ Example:
 
 ~~~markdown
 > warning "I am a warning"
-> The body of the warning goes here. Premonition also allow you to write Markdown inside the block.
+> The body of the warning goes here. Premonition also allow you to write `Markdown` inside the block.
 ~~~
 
 This will be converted into something like this by Premonition
 
 ~~~html
-<div class="premonition warning">
-  <span class="header">Info</span>
-  <p>The body of the warning goes here. Premonition also allow you to write Markdown inside the block.</p>
+<div class="premonition info"><div class="fa fa-check-square"></div><div class="content"><p class="header">Info</p><p>The body of the warning goes here. Premonition also allow you to write Markdown inside the block.</p></div></div>
 ~~~
 
-The title can be omitted by providing an empty string . Like this:
+The title can be omitted by providing an empty string. Like this:
 
 ~~~markdown
 > warning ""
@@ -86,51 +87,89 @@ Either by replacing the default template, or by configuring templates for each t
 
 All this are done inside your `_config.yml`
 
-### Replacing the default template
+### Templates
+
+Premonition use Liquid templates when rendering a block.
+
+You have five variables available inside a template:
+
+* *header* Boolean that tells you if a title exists and that a header should be added.
+* *content* The rendered content for your block.
+* *title* The block title.
+* *type* The block type name.
+* *meta* This is a hash that can contain any properties you would like to make available to your templates. It is configured in `_config.yml`
+
+Our default template looks like this:
+
+~~~html
+<div class="premonition {{type}}">
+  <div class="fa {{meta.fa-icon}}"></div>
+  <div class="content">{% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}</div></div>
+~~~
+
+#### Replacing the default template
+
+You can override the default template like this in your `_config.yml`:
 
 ```yaml
 premonition:
   default:
-    template: '<div></i>%{header}%{content}</div>'
-    header_template: '<span class="header">%{title}</span>'
+    template: 'Liquid template goes here'
 ```
-
-Please be aware of the placeholders inside the template. These placeholders will be replaced with
-the actual content of your block.
-
-Available placeholders are
-
-* *header* This is where the content from the header_template will be added if the title is not empty.
-* *content* This is where the rendered content of your block quote are added.
-* *title* This is where you block title will be added.
-* *type* The type name of the block.
 
 ### Adding custom types
 
-Sometimes you might want to have different markup for different block types. This can easily be done
-by adding types to your Premonition configuration inside `_config.yml`
+You can customize each block type easily in your `_config.yml`. For each type you can
+
+* Add a custom template (template)
+* Set a default title (default_title)
+* Set meta data that can be used in your template (meta)
+
+Each type must be given a unique id (name).
 
 ~~~yaml
 premonition:
-  default:
-    template: '<div></i>%{header}%{content}</div>'
-    header_template: '<span class="header %{type}">%{title}</span>'
   types:
-    - id: tip
-      template: '<div class="alert alert-success" role=""><i class="fa fa-check-square-o"></i>%{header}%{content}</div>'
-    - id: note
-      template: '<div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i>%{header}%{content}</div>'
+    - id: custombox
+      meta:
+        fa-icon: fa-exclamation-circle
+    - id: advanced
+      template: 'Custom template her'
+      default_title: 'MY BLOCK'
+      meta:
+        fa-icon: fa-exclamation-triangle
 ~~~
 
-NOTE: You cannot add a custom header_template to types at the moment. This will be fixed soon.
+## Styling
 
-#### Default titles
+Premonition comes with a stylesheet you can copy into to your project. Either
+as a Sass file or as plain css. Read the [Jekyll Documentation](https://jekyllrb.com/docs/assets/) on how to add it.
+You will find the resources file [here](https://github.com/amedia/premonition/tree/master/stylesheet)
 
-You can add a default title to a type.
+In order to get the fancy icons you see in the screenshot, you will have to add this configuration to your `_config.yml`:
 
 ~~~yaml
-- id: tip
-      template: '<div class="alert alert-success" role=""><i class="fa fa-check-square-o"></i>%{header}%{content}</div>'
-      default_title: 'TIP!'
+premonition:
+  types:
+    - id: note
+      meta:
+        fa-icon: fa-check-square
+    - id: info
+      meta:
+        fa-icon: fa-info-circle
+    - id: warning
+      meta:
+        fa-icon: fa-exclamation-circle
+    - id: error
+      meta:
+        fa-icon: fa-exclamation-triangle
 ~~~
+
+And finally you will have to add [Font Awesome](https://fontawesome.com/) to your html header file.
+
+The easiest way to do that is by using their free CDN:
+
+~~~html
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+~~~~
 
