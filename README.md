@@ -50,7 +50,7 @@ plugins:
 
 ## Usage
 
-Premonition blocks are really just standard Markdown block quote where the first line must follow a
+Premonition blocks are really just a standard Markdown block quote where the first line must follow a
 special format to activate the transformation.
 
 `> [type] "Title"`
@@ -59,7 +59,7 @@ The type can be any letter string. It is used to map a block to its type configu
 By default the type will be added as a class to the outer `<div>` of the
 generated markup.
 
-The *Title* is, as you might have guessed, the title that will be added to the block.
+The *Title* is, as you might have guessed, is the block title.
 
 Example:
 
