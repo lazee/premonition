@@ -2,72 +2,69 @@ module Jekyll
   module Premonition
     class Resources
       attr_reader :config
-      attr_reader :renderer
+      attr_reader :markdown
 
       def initialize(site_config)
-        @config = load_config site_config
-        @renderer = create_renderer site_config
+        @config = load site_config
+        @markdown = Converters::Markdown.new site_config
       end
 
-      def create_renderer(site_config)
-        hsh = {}
-        ext_lookup(site_config).each { |a|
-          hsh[a] = true
-        }
-        Redcarpet::Markdown.new(Redcarpet::Render::HTML, hsh)
-      end
-
-      def ext_lookup(site_config)
-        ((site_config['redcarpet'] || {})['extensions'] || [])
-      end
-
-      def load_config(site_config)
-        cfg = create_default_config
-        prem = site_config['premonition'] || {}
-        df = prem['default'] || {}
-        unless df['header_template'].nil?
-          fail('header_template config is no longer supported by Premonition. '\
-            'See upgrade doc on https://github.com/amedia/premonition ')
-        end
-        cfg[:default][:template] = df['template'].strip unless df['template'].nil?
-        cfg[:default][:title] = df['title'].strip unless df['title'].nil?
-        unless df['meta'].nil?
-          fail('meta configuration must be an hash') unless df['meta'].is_a?(Hash)
-          cfg[:default][:meta] = cfg[:default][:meta].merge(df['meta'])
-        end
-        unless prem['types'].nil?
-          fail('types configuration must be an array') unless prem['types'].is_a?(Array)
-          prem['types'].each { |t| cfg[:types] << load_config_type(t) }
-        end
+      def load(site_config)
+        cfg = default_config
+        p = site_config['premonition'] || {}
+        df = p['default'] || {}
+        validate_defaults df, p
+        cfg['default']['template'] = df['template'].strip unless df['template'].nil?
+        cfg['default']['title'] = df['title'].strip unless df['title'].nil?
+        cfg['default']['meta'] = cfg['default']['meta'].merge(df['meta']) unless df['meta'].nil?
+        load_types p, cfg
         cfg
       end
 
-      def load_config_type(t)
-        validate_config_type(t)
+      def default_config
         {
-          id: t['id'],
-          template: (t['template'].nil? ? nil : t['template'].strip),
-          default_title: (t['default_title'].nil? || t['default_title'].empty? ? nil : t['default_title'].strip),
-          meta: (t['meta'].nil? ? {} : t['meta'])
-        }
-      end
-
-      def validate_config_type(t)
-        fail('id missing from type') if t['id'].nil?
-        fail("id can only be lowercase letters: #{t['id']}") unless t['id'][/[a-z]+/] == t['id']
-        fail('meta configuration must be an hash') if !t['meta'].nil? && !t['meta'].is_a?(Hash)
-      end
-
-      def create_default_config
-        {
-          default: {
-            template: '<div class="premonition {{type}}"><div class="fa {{meta.fa-icon}}"></div>'\
+          'default' => {
+            'template' => '<div class="premonition {{type}}"><div class="fa {{meta.fa-icon}}"></div>'\
               '<div class="content">{% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}</div></div>',
-            meta: { 'fa-icon' => 'fa-check-square' },
-            title: nil
+            'meta' => { 'fa-icon' => 'fa-check-square' },
+            'title' => nil
           },
-          types: []
+          'types' => {
+            'note' => { 'meta' => { 'fa-icon' => 'fa-check-square' } },
+            'info' => { 'meta' => { 'fa-icon' => 'fa-info-circle' } },
+            'warning' => { 'meta' => { 'fa-icon' => 'fa-exclamation-circle' } },
+            'error' => { 'meta' => { 'fa-icon' => 'fa-exclamation-triangle' } }
+          }
         }
+      end
+
+      def validate_defaults(df, prem)
+        fail 'meta must be a hash' if !df['meta'].nil? && !df['meta'].is_a?(Hash)
+        fail 'types must be a hash' if !prem['types'].nil? && !prem['types'].is_a?(Hash)
+      end
+
+      def load_types(p, cfg)
+        return if p['types'].nil?
+        p['types'].each do |id, obj|
+          t = type_config id, obj
+          cfg['types'][id] = cfg['types'][id].merge(t) unless cfg['types'][id].nil?
+          cfg['types'][id] = t if cfg['types'][id].nil?
+        end
+      end
+
+      def type_config(id, t)
+        validate_type(id, t)
+        {
+          'template' => t['template'].nil? ? nil : t['template'].strip,
+          'default_title' => t['default_title'].nil? || t['default_title'].empty? ? nil : t['default_title'].strip,
+          'meta' => t['meta'].nil? ? {} : t['meta']
+        }
+      end
+
+      def validate_type(id, t)
+        fail 'id missing from type' if id.nil?
+        fail "id can only be lowercase letters: #{id}" unless id[/[a-z]+/] == id
+        fail 'meta must be an hash' if !t['meta'].nil? && !t['meta'].is_a?(Hash)
       end
 
       def fail(msg)

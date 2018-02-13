@@ -1,4 +1,3 @@
-require 'redcarpet'
 require 'jekyll'
 require 'premonition/version'
 require 'premonition/resources'

@@ -8,7 +8,7 @@
 
 Premonition is a [Jekyll](https://jekyllrb.com/) extension that makes it possible to add block-styled Markdown side content to your documentation, for example summaries, notes, hints or warnings.
 
-It looks for a custom header on the first line of [block quotes](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes) and converts it into html markup before the Jekyll Markdown parser are executed. As of now we only support the [RedCarpet Markdown parser](https://github.com/vmg/redcarpet), but Kramdown support might be added in the future if requested.
+It looks for a custom header on the first line of [block quotes](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes) and converts it into html markup before the Jekyll Markdown parser are executed.
 
 <p align="center">
 <img src="https://github.com/amedia/premonition/raw/master/screen.png" height="450"/>
@@ -23,7 +23,6 @@ It looks for a custom header on the first line of [block quotes](https://github.
 
 ## Requirements
 
- * Redcarpet
  * Jekyll 3.7.x or higher
 
  If you want to use the default template and stylesheet, you should also
@@ -34,23 +33,19 @@ It looks for a custom header on the first line of [block quotes](https://github.
 Add the following line to your `Gemfile` inside your Jekyll project. It should look something like this, depending on your Jekyll version:
 
 ```
-gem "redcarpet"
 group :jekyll_plugins do
   gem "premonition", "~> 2.0.0"
 end
 ```
-As Premonition depends on Redcarpet, you must make sure this dependency is added as well. Also make sure that you have configured Jekyll to use Redcarpet:
 
-```yaml
-markdown: redcarpet
-```
-
-Then finally add Premonition to `plugins` inside the Jekyll config file (`_config.yml`):
+Then add Premonition to `plugins` inside the Jekyll config file (`_config.yml`):
 
 ```yaml
 plugins:
     - premonition
 ```
+
+Finally run `bundle install`
 
 ## Usage
 
@@ -84,8 +79,6 @@ The title can be omitted by providing an empty string. Like this:
 > warning ""
 > No headers in here
 ~~~
-
-Now you can add some CSS styling.
 
 ## Configuration
 
@@ -153,30 +146,12 @@ Premonition comes with a stylesheet you can copy into to your project. Either
 as a Sass file or as plain css. Read the [Jekyll Documentation](https://jekyllrb.com/docs/assets/) on how to add it.
 You will find the resources file [here](https://github.com/amedia/premonition/tree/master/stylesheet)
 
-In order to get the fancy icons you see in the screenshot, you will have to add this configuration to your `_config.yml`:
+Finally you will have to add [Font Awesome](https://fontawesome.com/) to your html header file.
+NOTE: You have to use v4.x of Font Awesome at the moment. Or you can create your own templates and css.
 
-~~~yaml
-premonition:
-  types:
-    - id: note
-      meta:
-        fa-icon: fa-check-square
-    - id: info
-      meta:
-        fa-icon: fa-info-circle
-    - id: warning
-      meta:
-        fa-icon: fa-exclamation-circle
-    - id: error
-      meta:
-        fa-icon: fa-exclamation-triangle
-~~~
-
-And finally you will have to add [Font Awesome](https://fontawesome.com/) to your html header file.
-
-The easiest way to do that is by using their free CDN:
+The easiest way to do that is by including their Css in your site header:
 
 ~~~html
-<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 ~~~~
 
