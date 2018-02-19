@@ -1,6 +1,6 @@
 # Premonition
 
-**DEMO: https://amedia.github.io/premonition-demo/**
+**DEMO: https://amedia.github.io/premonition-demo/ ([Source code](https://github.com/amedia/premonition-demo))**
 
 Premonition is a [Jekyll](https://jekyllrb.com/) extension that makes it possible to add block-styled content to your site in plain Markdown.
 
