@@ -20,9 +20,9 @@ module Jekyll
         b = nil
         doc.content.each_line do |l|
           if blockquote?(l) && empty_block?(b)
-            if (m = l.match(/^\>\s+([a-z]+)\s+\"(.*)\"$/i))
-              y, t = m.captures
-              b = { 'title' => t.strip, 'type' => y.strip.downcase, 'content' => [] }
+            if (m = l.match(/^\>\s+([a-z]+)\s+\"(.*)\"\s*(?:\[(.*)\])?$/i))
+              y, t, c = m.captures
+              b = { 'title' => t.strip, 'cite' => (c.strip unless c.nil?), 'type' => y.strip.downcase, 'content' => [] }
             else
               o << l
             end
@@ -56,6 +56,7 @@ module Jekyll
           {
             'header' => !t['title'].nil?,
             'title' => t['title'],
+            'cite' => b['cite'],
             'content' => c,
             'type' => b['type'],
             'meta' => t['meta']
@@ -68,12 +69,14 @@ module Jekyll
         c = {
           'template' => @resources.config['default']['template'],
           'title' => @resources.config['default']['title'],
+          'cite' => @resources.config['default']['cite'],
           'meta' => @resources.config['default']['meta']
         }
         @resources.config['types'].each do |id, t|
           next unless id == b['type']
           c['title'] = b['title'].empty? || b['title'].nil? ? t['default_title'] : b['title']
           c['template'] = t['template'] unless t['template'].nil?
+          c['cite'] = b['cite'] unless b['cite'].nil?
           c['meta'] = c['meta'].merge(t['meta']) unless t['meta'].nil?
         end
         c

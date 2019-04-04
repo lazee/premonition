@@ -1,7 +1,7 @@
 require 'jekyll'
-require 'premonition/version'
-require 'premonition/resources'
-require 'premonition/hook'
+require_relative 'premonition/version'
+require_relative 'premonition/resources'
+require_relative 'premonition/hook'
 
 module Jekyll
   module Premonition

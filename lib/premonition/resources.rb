@@ -16,6 +16,7 @@ module Jekyll
         validate_defaults df, p
         cfg['default']['template'] = df['template'].strip unless df['template'].nil?
         cfg['default']['title'] = df['title'].strip unless df['title'].nil?
+        cfg['default']['cite'] = df['cite'].strip unless df['cite'].nil?
         cfg['default']['meta'] = cfg['default']['meta'].merge(df['meta']) unless df['meta'].nil?
         load_types p, cfg
         cfg
@@ -27,13 +28,15 @@ module Jekyll
             'template' => '<div class="premonition {{type}}"><div class="fa {{meta.fa-icon}}"></div>'\
               '<div class="content">{% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}</div></div>',
             'meta' => { 'fa-icon' => 'fa-check-square' },
-            'title' => nil
+            'title' => nil,
+            'cite' => nil
           },
           'types' => {
             'note' => { 'meta' => { 'fa-icon' => 'fa-check-square' } },
             'info' => { 'meta' => { 'fa-icon' => 'fa-info-circle' } },
             'warning' => { 'meta' => { 'fa-icon' => 'fa-exclamation-circle' } },
-            'error' => { 'meta' => { 'fa-icon' => 'fa-exclamation-triangle' } }
+            'error' => { 'meta' => { 'fa-icon' => 'fa-exclamation-triangle' } },
+            'citation' => { 'meta' => { 'fa-icon' => 'fa-quote-left' }, 'template' => '<div class="premonition {{type}}"><div class="fas {{meta.fa-icon}}"></div><blockquote class="content blockquote"{% if cite %} cite="{{cite}}"{% endif %}>{{content}}{% if header %}<footer class="blockquote-footer"><cite title="{{title}}">{{title}}</cite></footer>{% endif %}</blockquote></div>' }
           }
         }
       end
