@@ -1,6 +1,6 @@
 # Premonition
 
-**DEMO: https://amedia.github.io/premonition-demo/ ([Source code](https://github.com/amedia/premonition-demo))**
+**DEMO: https://lazee.github.io/premonition-demo/ ([Source code](https://github.com/lazee/premonition-demo))**
 
 Premonition is a [Jekyll](https://jekyllrb.com/) extension that makes it possible to add block-styled content to your site in plain Markdown.
 
@@ -8,7 +8,7 @@ By adding a special header to the first line of a [block quote](https://github.c
 Premonition will transform it into a markup block of your choice.
 
 <p align="center">
-<img src="https://github.com/amedia/premonition/raw/master/screen.png" height="450"/>
+<img src="https://github.com/lazee/premonition/raw/master/screen.png" height="450"/>
 </p>
 
 ## Features
@@ -161,7 +161,7 @@ premonition:
 Premonition comes with a stylesheet you can copy into to your project. Either
 as a Sass file or as plain css. The [Jekyll Documentation](https://jekyllrb.com/docs/assets/) describes the process in great details.
 
-Download the stylesheet from here : https://github.com/amedia/premonition/tree/master/stylesheet
+Download the stylesheet from here : https://github.com/lazee/premonition/tree/master/stylesheet
 
 In order to get the fancy icons, you will have to add [Font Awesome](https://fontawesome.com/) to your html header file.
 Be aware that you have to use v4.x of Font Awesome together with our CSS.
