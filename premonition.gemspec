@@ -11,11 +11,10 @@ Gem::Specification.new do |s|
   s.files = Dir['LICENSE', 'README.md', 'lib/**/*']
   s.require_paths << 'lib'
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
-  s.has_rdoc = false
   s.extra_rdoc_files = ['README.md']
 
+  s.add_dependency 'jekyll', '>= 2.0', '< 5.0'
   s.add_development_dependency 'bundler', '~> 1.5'
-  s.add_development_dependency 'jekyll', '>= 2.0', '< 3.0'
   s.add_development_dependency 'mocha'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'turn'
