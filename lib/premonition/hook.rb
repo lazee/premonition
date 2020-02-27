@@ -18,8 +18,13 @@ module Jekyll
       def adder(doc)
         o = []
         b = nil
+        is_code_block = false
         doc.content.each_line do |l|
-          if blockquote?(l) && empty_block?(b)
+          is_code_block = !is_code_block if code_block_line?(l)
+
+          if is_code_block
+            o << l
+          elsif blockquote?(l) && empty_block?(b)
             if (m = l.match(/^\s*\>\s+([a-z]+)\s+\"(.*)\"$/i))
               y, t = m.captures
               b = { 'title' => t.strip, 'type' => y.strip.downcase, 'content' => [] }
@@ -38,6 +43,10 @@ module Jekyll
         end
         o << render_block(b) unless empty_block?(b)
         doc.content = o.join
+      end
+
+      def code_block_line?(l)
+        l.strip.start_with?('~~~')
       end
 
       def blockquote?(l)
