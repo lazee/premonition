@@ -79,6 +79,15 @@ module Jekyll
           'title' => @resources.config['default']['title'],
           'meta' => @resources.config['default']['meta']
         }
+
+        if !@resources.config['types'].include? b['type']
+          c['title'] = ''
+          c['meta'] = { 'fa-icon' => 'fa-bug' }
+          c['template'] = '<div class="premonition error"><div class="fa {{meta.fa-icon}}"></div>'\
+          '<div class="content"><p class="header">PREMONITION ERROR: Invalid box type</p>You have specified an invalid box type "{{type}}". You can customize your own box types in `_config.yml`. See documentation for help.</div></div>'
+          return c
+        end
+
         @resources.config['types'].each do |id, t|
           next unless id == b['type']
           c['title'] = b['title'].empty? || b['title'].nil? ? t['default_title'] : b['title']
