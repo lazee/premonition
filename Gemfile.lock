@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    premonition (2.0.0)
+    premonition (2.0.1)
       jekyll (>= 2.0, < 5.0)
 
 GEM
@@ -48,7 +48,6 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.3.6)
-    metaclass (0.0.4)
     minitest (4.7.5)
     mocha (1.3.0)
       metaclass (~> 0.0.1)
@@ -75,10 +74,10 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.5)
-  mocha
+  mocha (~> 1.11.2)
   premonition!
-  rake
-  turn
+  rake (~> 13.0.1)
+  turn (~> 0.9.7)
 
 BUNDLED WITH
    1.17.3
