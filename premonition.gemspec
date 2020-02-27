@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
   s.extra_rdoc_files = ['README.md']
 
+  s.add_dependency 'jekyll', '>= 2.0', '< 5.0'
   s.add_development_dependency 'bundler', '~> 1.5'
-  s.add_development_dependency 'jekyll', '>= 2.0', '< 3.0'
   s.add_development_dependency 'mocha', '~> 1.11.2'
   s.add_development_dependency 'rake', '~> 13.0.1'
   s.add_development_dependency 'turn', '~> 0.9.7'
