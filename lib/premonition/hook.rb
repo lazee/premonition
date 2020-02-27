@@ -20,14 +20,14 @@ module Jekyll
         b = nil
         doc.content.each_line do |l|
           if blockquote?(l) && empty_block?(b)
-            if (m = l.match(/^\>\s+([a-z]+)\s+\"(.*)\"$/i))
+            if (m = l.match(/^\s*\>\s+([a-z]+)\s+\"(.*)\"$/i))
               y, t = m.captures
               b = { 'title' => t.strip, 'type' => y.strip.downcase, 'content' => [] }
             else
               o << l
             end
           elsif blockquote?(l) && !empty_block?(b)
-            b['content'] << l.match(/^\>\s?(.*)$/i).captures[0]
+            b['content'] << l.match(/^\s*\>\s?(.*)$/i).captures[0]
           else
             if !blockquote?(l) && !empty_block?(b)
               o << render_block(b)
