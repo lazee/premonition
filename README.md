@@ -20,7 +20,7 @@ Premonition will transform it into a markup block of your choice.
 
 ## Requirements
 
- * Jekyll 3.7.x or higher
+ * Jekyll 4.0.x or higher
  * FontAwesome 4.x (If you are using the default template and styles)
 
 ## Installation
@@ -29,7 +29,7 @@ Add the following line to your `Gemfile`:
 
 ```
 group :jekyll_plugins do
-  gem "premonition", "~> 2.0.0"
+  gem "premonition", "~> 4.0.0"
 end
 ```
 
