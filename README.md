@@ -126,7 +126,7 @@ If you want to override the template for one of the default types (like note), d
 ```yaml
 premonition:
   types:
-    - id: note
+    note:
       template: 'Liquid template goes here'
 ```
 
@@ -146,10 +146,10 @@ Each type must have unique id (lowercase letters).
 ~~~yaml
 premonition:
   types:
-    - id: custombox
+    custombox:
       meta:
         fa-icon: fa-exclamation-circle
-    - id: advanced
+    advanced:
       template: 'Liquid template goes here'
       default_title: 'MY BLOCK'
       meta:
@@ -171,4 +171,3 @@ The easiest way to get startet with Font Awesome is to add this to your html hea
 ~~~html
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 ~~~~
-
