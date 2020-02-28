@@ -29,7 +29,7 @@ Add the following line to your `Gemfile`:
 
 ```
 group :jekyll_plugins do
-  gem "premonition", "~> 2.0.0"
+  gem "premonition", "~> 2.0.1"
 end
 ```
 
