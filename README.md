@@ -17,7 +17,6 @@ Premonition will transform it into a markup block of your choice.
  * Non-intrusive - Content are presented as block-quotes by any other renderer.
  * Easy to install
  * Comes with a stylesheet (Sass/Css) and templates for rendering typical information boxes.
- * Support for both Kramdown and RedCarpet.
 
 ## Requirements
 
