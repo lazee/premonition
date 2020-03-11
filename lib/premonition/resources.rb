@@ -18,6 +18,7 @@ module Jekyll
         cfg['default']['title'] = df['title'].strip unless df['title'].nil?
         cfg['default']['meta'] = cfg['default']['meta'].merge(df['meta']) unless df['meta'].nil?
         load_types p, cfg
+        load_extensions p, cfg
         cfg
       end
 
@@ -34,7 +35,11 @@ module Jekyll
             'info' => { 'meta' => { 'fa-icon' => 'fa-info-circle' } },
             'warning' => { 'meta' => { 'fa-icon' => 'fa-exclamation-circle' } },
             'error' => { 'meta' => { 'fa-icon' => 'fa-exclamation-triangle' } }
-          }
+          },
+          'extensions' => [
+            'md',
+            'markdown'
+          ]
         }
       end
 
@@ -45,10 +50,22 @@ module Jekyll
 
       def load_types(p, cfg)
         return if p['types'].nil?
+
         p['types'].each do |id, obj|
           t = type_config id, obj
           cfg['types'][id] = cfg['types'][id].merge(t) unless cfg['types'][id].nil?
           cfg['types'][id] = t if cfg['types'][id].nil?
+        end
+      end
+
+      def load_extensions(p, cfg)
+        return if p['extensions'].nil?
+        return unless p['extensions'].is_a?(Array)
+        return if p['extensions'].empty?
+
+        cfg['extensions'] = []
+        p['extensions'].each do |v|
+          cfg['extensions'] << v unless cfg['extensions'].include?(v)
         end
       end
 
