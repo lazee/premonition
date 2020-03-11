@@ -17,5 +17,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'bundler', '~> 2.1.4'
   s.add_development_dependency 'mocha', '~> 1.11.2'
   s.add_development_dependency 'rake', '~> 13.0.1'
+  s.add_development_dependency 'rubocop', '>= 0.68.0', '< 0.72.0'
+  s.add_development_dependency 'rubocop-jekyll', '~> 0.10.0'
   s.add_development_dependency 'turn', '~> 0.9.7'
+  
 end

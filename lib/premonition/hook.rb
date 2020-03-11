@@ -28,9 +28,7 @@ module Jekyll
         end
 
         Hooks.register [:pages], :pre_render do |doc|
-          if process?(resources, doc)
-            doc.content = processor.adder(doc.content)
-          end
+          doc.content = processor.adder(doc.content) if process?(resources, doc)
         end
       end
     end
