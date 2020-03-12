@@ -1,14 +1,23 @@
 # frozen_string_literal: true
+
 module Jekyll
   module Premonition
     class Processor
-
       def initialize(resources)
         @resources = resources
       end
 
+      def load_references(content)
+        refs = ["\n"]
+        content.each_line do |l|
+          refs << l if l.strip!.match(/^\[.*\]:.*\".*\"$/i)
+        end
+        refs
+      end
+
       def adder(content)
         o = []
+        references = load_references(content)
         b = nil
         is_code_block = false
         content.each_line do |l|
@@ -26,13 +35,13 @@ module Jekyll
             b['content'] << l.match(/^\s*\>\s?(.*)$/i).captures[0]
           else
             if !blockquote?(l) && !empty_block?(b)
-              o << render_block(b)
+              o << render_block(b, references)
               b = nil
             end
             o << l
           end
         end
-        o << render_block(b) unless empty_block?(b)
+        o << render_block(b, references) unless empty_block?(b)
         o.join
       end
 
@@ -48,9 +57,11 @@ module Jekyll
         b.nil?
       end
 
-      def render_block(b)
+      def render_block(b, references)
         t = create_resource(b)
-        c = "#{@resources.markdown.convert(b['content'].join("\n"))}\n\n"
+        a = b['content'] + references
+        c = "#{@resources.markdown.convert(a.join("\n"))}\n\n"
+
         template = Liquid::Template.parse(t['template'], error_mode: :strict)
         template.render(
           {
