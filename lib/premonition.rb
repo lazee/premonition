@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'jekyll'
 require_relative 'premonition/version'
 require_relative 'premonition/processor'
