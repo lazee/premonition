@@ -1,11 +1,10 @@
 # Premonition
 
-**DEMO: https://lazee.github.io/premonition-demo/ ([Source code](https://github.com/lazee/premonition-demo))**
+[Demo site](https://lazee.github.io/premonition-demo/) | [Source code](https://github.com/lazee/premonition-demo)
 
-Premonition is a [Jekyll](https://jekyllrb.com/) extension that makes it possible to add block-styled content to your site in plain Markdown.
+Premonition is a [Jekyll](https://jekyllrb.com/) extension that can convert Markdown block-quotes into beautiful block styled content. 
 
-By adding a special header to the first line of a [block quote](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes),
-Premonition will transform it into a markup block of your choice.
+By simply adding a special header to the first line of a [block quote](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes), Premonition will transform it into a markup block of your choice.
 
 <p align="center">
 <img src="https://github.com/lazee/premonition/raw/master/screen.png" height="450"/>
@@ -14,7 +13,7 @@ Premonition will transform it into a markup block of your choice.
 ## Features
 
  * Highly customizable (Create your own styles and templates easily)
- * Non-intrusive - Content are presented as block-quotes by any other renderer.
+ * Non-intrusive - Its just Markdown!
  * Easy to install
  * Comes with a stylesheet (Sass/Css) and templates for rendering typical information boxes.
 
