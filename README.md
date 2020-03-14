@@ -19,7 +19,7 @@ By simply adding a special header to the first line of a [block quote](https://g
 
 ## Requirements
 
- * Jekyll 4.0.x or higher
+ * Jekyll 3.7.x or higher
  * FontAwesome 4.x (If you are using the default template and styles)
 
 ## Installation
