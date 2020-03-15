@@ -76,6 +76,7 @@ module Jekyll
         {
           'template' => t['template'].nil? ? nil : t['template'].strip,
           'default_title' => t['default_title'].nil? || t['default_title'].empty? ? nil : t['default_title'].strip,
+          'default_attribute' => t['default_attribute'].nil? || t['default_atttribute'].empty? ? nil : t['default_atribute'].strip,
           'meta' => t['meta'].nil? ? {} : t['meta']
         }
       end
