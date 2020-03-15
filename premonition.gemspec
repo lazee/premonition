@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake', '~> 13.0.1'
   s.add_development_dependency 'rubocop', '>= 0.68.0', '< 0.72.0'
   s.add_development_dependency 'rubocop-jekyll', '~> 0.10.0'
+  s.add_development_dependency 'test-unit', '~> 3.3.5'
   s.add_development_dependency 'turn', '~> 0.9.7'
-  
 end

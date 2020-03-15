@@ -57,6 +57,7 @@ GEM
       ast (~> 2.4.0)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
+    power_assert (1.1.6)
     public_suffix (4.0.3)
     rainbow (3.0.0)
     rake (13.0.1)
@@ -82,6 +83,8 @@ GEM
       ffi (~> 1.9)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
+    test-unit (3.3.5)
+      power_assert
     turn (0.9.7)
       ansi
       minitest (~> 4)
@@ -97,6 +100,7 @@ DEPENDENCIES
   rake (~> 13.0.1)
   rubocop (>= 0.68.0, < 0.72.0)
   rubocop-jekyll (~> 0.10.0)
+  test-unit (~> 3.3.5)
   turn (~> 0.9.7)
 
 BUNDLED WITH
