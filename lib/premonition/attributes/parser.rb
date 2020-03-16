@@ -31,23 +31,17 @@ module Jekyll
         # Initialize a new Parser AND start parsing
         #
         # str          - A string containing the attributes block to be parser.
-        # default_attr - If set, then this value will be used as the key if
-        #                only a single value is given within the attributes
-        #                block. Eg: if set to 'foo' and attributes block is
-        #                '[ "bar" ]', then an attribute { 'foo' => 'bar' } is
-        #                added to the parsed attributes.
-        #                NB: This works for one attribute only.
-        def initialize(str, default_attr = nil)
+        def initialize(str)
           @raw = str                       # Keeps th original string for later use
           @buffer = StringScanner.new(str) # Create StringScanner buffer
           @attributes = {}                 # Initialize the attributes hash
           @stack = [Stacker.new(0)]        # Initialize the parser stack with initial "state"
-          parse(default_attr)              # Start parsing
+          parse                            # Start parsing
         end
 
         private
 
-        def parse(_default_attr)
+        def parse
           raise error('No attributes block found in given string') unless @raw.match(/^.*\[.*\].*/)
 
           until @buffer.eos?
@@ -101,6 +95,11 @@ module Jekyll
 
         def parse_value(char)
           case char
+          when ']'
+            if plain_mode?
+              pop_attribute_from_stack
+              push_stacker(4)
+            end
           when '"'
             pop_attribute_from_stack unless plain_mode?
             raise error('Illegal " found') unless @stack.last.value.nil? || @stack.last.value.empty?
@@ -122,7 +121,7 @@ module Jekyll
             append_char(char)
           when ' '
             if plain_mode?
-              raise error('Illegal spacing in unquoted value') if @buffer.check(/\s*,/).nil?
+              raise error('Illegal spacing in unquoted value') if @buffer.check(/\s*[,\]]/).nil?
               pop_attribute_from_stack
               push_stacker(1)
             else
@@ -145,7 +144,7 @@ module Jekyll
           @stack.last.append(char)
         end
 
-        def pop_attribute_from_stackibute_from_stack
+        def pop_attribute_from_stack
           v = @stack.pop
           return if [0, 1, 2].include?(v.type) # Ignore these types from stack
           k = @stack.pop

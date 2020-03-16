@@ -10,6 +10,8 @@ class ParserTest < Test::Unit::TestCase
   def teardown; end
 
   def test_parse1
+    parser = Jekyll::Premonition::Attributes::Parser.new('> "info" [  foo = still ] ')
+    assert_equal(1, parser.attributes.length)
     parser = Jekyll::Premonition::Attributes::Parser.new('> "info" [  foo = still, bar = got, zot="it.\\" \\\\"  ] ')
     assert_equal(3, parser.attributes.length)
     assert_equal('still', parser.attributes['foo'])

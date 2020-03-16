@@ -8,6 +8,8 @@
   $error-color: #d9534f;
   $error-light-color: #fdf7f7;
   $content-color: rgba(0,0,0,0.5);
+  $citation-color: #495057;
+  $citation-light-color: #f8f9fa;
 
   display: grid;
   grid-template-columns: 43px auto;
@@ -29,16 +31,32 @@
     color: $default-color;
   }
 
-  .fa {
+  .fa,
+  .fas,
+  .far,
+  .fal,
+  .fab {
     font-size: 18px;
     opacity: .3;
     padding-top: 2px;
     padding-left: 20px;
   }
 
+  &>svg {
+    opacity: .6;
+    margin-top: 0.36rem;
+    margin-left: 0.7rem;
+  }
+
   .content {
     color: $content-color;
+    padding-left: 20px;
     padding-right: 40px;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   @mixin box-type($c, $lc) {
@@ -61,4 +79,11 @@
   &.info { @include box-type($info-color, $info-light-color); }
   &.warning { @include box-type($warning-color, $warning-light-color); }
   &.error { @include box-type($error-color, $error-light-color); }
+  &.citation {
+    @include box-type($citation-color, $citation-light-color);
+
+    blockquote {
+      border-left: 0;
+    }
+  }
 }

@@ -20,7 +20,7 @@ By simply adding a special header to the first line of a [block quote](https://g
 ## Requirements
 
  * Jekyll 3.7.x or higher
- * FontAwesome 4.x (If you are using the default template and styles)
+ * FontAwesome 5.x
 
 ## Installation
 
@@ -76,7 +76,7 @@ Example:
 Premonition will then convert this into something like:
 
 ~~~html
-<div class="premonition info"><div class="fa fa-check-square"></div><div class="content"><p class="header">Info</p><p>The body of the warning goes here. Premonition also allow you to write Markdown inside the block.</p></div></div>
+<div class="premonition info"><i class="fas fa-check-square"></i><div class="content"><p class="header">Info</p><p>The body of the warning goes here. Premonition also allow you to write Markdown inside the block.</p></div></div>
 ~~~
 
 You can change the markup into anything you like by adding your own template.
@@ -162,10 +162,16 @@ as a Sass file or as plain css. The [Jekyll Documentation](https://jekyllrb.com/
 Download the stylesheet from here : https://github.com/lazee/premonition/tree/master/stylesheet
 
 In order to get the fancy icons, you will have to add [Font Awesome](https://fontawesome.com/) to your html header file.
-Be aware that you have to use v4.x of Font Awesome together with our CSS.
+Be aware that you have to use v5.x of Font Awesome together with our CSS.
 
 The easiest way to get startet with Font Awesome is to add this to your html header file:
 
 ~~~html
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
 ~~~~
+
+If you need backward compability with v4:
+
+~~~html
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css">
+~~~
