@@ -15,7 +15,17 @@ By simply adding a special header to the first line of a [block quote](https://g
  * Highly customizable (Create your own styles and templates easily)
  * Non-intrusive - Its just Markdown!
  * Easy to install
- * Comes with a stylesheet (Sass/Css) and templates for rendering typical information boxes.
+ * Comes with a stylesheet (Sass/Css) and templates for rendering the most common boxes.
+
+ ## Version 4 highlights
+
+ * Added Jekyll Excerpts support
+ * Kramdown reference links now supported
+ * Jekyll 4 support
+ * Added support for block attributes. This is in use in the new citation 
+   block type: `> citation "-- jakob" [ cite = "jvn" ]`
+ * Other minor bug fixes
+
 
 ## Requirements
 
