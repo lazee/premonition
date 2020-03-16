@@ -27,7 +27,7 @@ module Jekyll
       def default_config
         {
           'default' => {
-            'template' => '<div class="premonition {{type}}"><div class="fa {{meta.fa-icon}}"></div>'\
+            'template' => '<div class="premonition {{type}}"><i class="fas {{meta.fa-icon}}"></i>'\
               '<div class="content">{% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}</div></div>',
             'meta' => { 'fa-icon' => 'fa-check-square' },
             'title' => nil
@@ -36,7 +36,12 @@ module Jekyll
             'note' => { 'meta' => { 'fa-icon' => 'fa-check-square' } },
             'info' => { 'meta' => { 'fa-icon' => 'fa-info-circle' } },
             'warning' => { 'meta' => { 'fa-icon' => 'fa-exclamation-circle' } },
-            'error' => { 'meta' => { 'fa-icon' => 'fa-exclamation-triangle' } }
+            'error' => { 'meta' => { 'fa-icon' => 'fa-exclamation-triangle' } },
+            'citation' => { 'meta' => { 'fa-icon' => 'fa-quote-left' }, 'template' =>
+              '<div class="premonition {{type}}"><i class="fas {{meta.fa-icon}}"></i>'\
+              '<blockquote class="content blockquote"{% if attrs.cite %} cite="{{attrs.cite}}"{% endif %}>{{content}}{% if header %}'\
+              '<footer class="blockquote-footer">'\
+              '<cite title="{{title}}">{{title}}</cite></footer>{% endif %}</blockquote></div>' }
           },
           'extensions' => [
             'md',
