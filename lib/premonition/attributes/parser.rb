@@ -55,7 +55,7 @@ module Jekyll
 
             case @stack.last.type
             when 0 # Outside block mode
-              push(1) if char == '['
+              push_stacker(1) if char == '['
             when 1 # In between
               parse_in_between(char)
             when 2 # Key
@@ -70,15 +70,14 @@ module Jekyll
           return if char == ' ' # Ignoring all spaces before, between and after keys and values.
 
           if char == ']'
-            pop_attr
-            push(4)
+            pop_attribute_from_stack
+            push_stacker(4)
           elsif char == ','
             raise error("Attribute separator ',' not allowed here.") if @attributes.length.zero?
-
-            push(2)
+            push_stacker(2)
           elsif char.match(/^[a-zA-z0-9\-_]$/)
-            push(2)
-            @stack.last.append(char)
+            push_stacker(2)
+            append_char(char)
           else
             raise error("Illegal character '#{char}' outside key and value")
           end
@@ -86,16 +85,15 @@ module Jekyll
 
         def parse_key(char)
           if char == '='
-            push(3)
-            @stack.last.meta['mode'] = 'plain'
+            push_stacker(3)
+            value_mode('plain')
           elsif char.match(/^[a-zA-z0-9\-_]$/)
-            @stack.last.append(char)
+            append_char(char)
           elsif char == ' '
             m = @buffer.scan(/\s*\=\s*/)
             raise error('Space not allowed inside attribute key') if m.nil?
-
-            push(3)
-            @stack.last.meta['mode'] = 'plain'
+            push_stacker(3)
+            value_mode('plain')
           else
             raise error("Illegal character '#{char}' for attribute key")
           end
@@ -104,44 +102,34 @@ module Jekyll
         def parse_value(char)
           case char
           when '"'
-            if @stack.last.meta['mode'] == 'plain'
-              raise error('Illegal " found') unless @stack.last.value.nil? || @stack.last.value.empty?
-              @stack.last.meta['mode'] = 'block'
-            else
-              pop_attr
-            end
+            pop_attribute_from_stack unless plain_mode?
+            raise error('Illegal " found') unless @stack.last.value.nil? || @stack.last.value.empty?
+            value_mode('block')
           when '\\'
-            if @stack.last.meta['mode'] == 'block'
-              unless ['\\', '"'].include?(@buffer.peek(1))
-                raise error('Unsupported escaping of character inside string block')
-              end
-              @stack.last.append(@buffer.peek(1))
-              @buffer.pos += 1
-            else
-              raise error('Backslash is not allowed in unquoted values')
-            end
+            raise error('Backslash is not allowed in unquoted values') if plain_mode?
+            raise error('Unsupported escaping of character inside string block') unless ['\\', '"'].include?(@buffer.peek(1))
+            append_char(@buffer.peek(1))
+            @buffer.pos += 1
           when ','
-            if @stack.last.meta['mode'] == 'plain'
-              pop_attr
-              push(1)
+            if plain_mode?
+              pop_attribute_from_stack
+              push_stacker(1)
             else
-              @stack.last.append(char)
+              append_char(char)
             end
           when '='
-            raise error('Illegal use of equals character in unquoted value') if @stack.last.meta['mode'] == 'plain'
-
-            @stack.last.append(char)
+            raise error('Illegal use of equals character in unquoted value') if plain_mode?
+            append_char(char)
           when ' '
-            if @stack.last.meta['mode'] == 'plain'
+            if plain_mode?
               raise error('Illegal spacing in unquoted value') if @buffer.check(/\s*,/).nil?
-
-              pop_attr
-              push(1)
+              pop_attribute_from_stack
+              push_stacker(1)
             else
-              @stack.last.append(char)
+              append_char(char)
             end
           else
-            @stack.last.append(char)
+            append_char(char)
           end
         end
 
@@ -149,22 +137,32 @@ module Jekyll
           ParserError.new(msg, @raw, @buffer.pos)
         end
 
-        def push(type)
+        def push_stacker(type)
           @stack << Stacker.new(type)
         end
 
-        def append(char)
+        def append_char(char)
           @stack.last.append(char)
         end
 
-        def pop_attr
+        def pop_attribute_from_stackibute_from_stack
           v = @stack.pop
           return if [0, 1, 2].include?(v.type) # Ignore these types from stack
-
           k = @stack.pop
           raise error("Expected key but got: #{k.value}, #{k.type}") unless k.type == 2
-
           @attributes[k.value] = v.value
+        end
+
+        def plain_mode?
+          @stack.last.meta['mode'] == 'plain'
+        end
+
+        def block_mode?
+          @stack.last.meta['mode'] == 'block'
+        end
+
+        def value_mode(str)
+          @stack.last.meta['mode'] = str
         end
       end
     end
