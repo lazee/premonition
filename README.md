@@ -23,7 +23,9 @@ By simply adding a special header to the first line of a [block quote](https://g
  * Kramdown reference links now supported
  * Jekyll 4 support
  * Added support for block attributes. This is in use in the new citation 
-   block type: `> citation "-- jakob" [ cite = "jvn" ]`
+   block type: 
+   
+   `> citation "-- jakob" [ cite = "jvn" ]`
  * Other minor bug fixes
 
 
