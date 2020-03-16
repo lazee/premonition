@@ -14,7 +14,7 @@
   display: grid;
   grid-template-columns: 43px auto;
   padding-top: 13px;
-  padding-bottom: 6px;
+  padding-bottom: 13px;
   margin: 30px 0 30px 0;
   background-color: $default-light-color;
   border-left: 4px solid $default-color;
@@ -36,7 +36,7 @@
   .far,
   .fal,
   .fab {
-    font-size: 18px;
+    font-size: 28px;
     opacity: .3;
     padding-top: 2px;
     padding-left: 20px;
