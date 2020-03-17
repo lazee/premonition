@@ -62,7 +62,7 @@ bundle install
 
 ### Installing the default stylesheet
 
-Finally, if you want to use the standard Premonition styling (You really should!), then you have to install the SASS stylesheet.
+Finally, if you want to use the default Premonition styling (You really should!), then you have to install the SASS stylesheet.
 
 From your Jekyll project folder, run:
 
