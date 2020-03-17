@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jekyll
   module Premonition
     class Resources
@@ -18,23 +20,33 @@ module Jekyll
         cfg['default']['title'] = df['title'].strip unless df['title'].nil?
         cfg['default']['meta'] = cfg['default']['meta'].merge(df['meta']) unless df['meta'].nil?
         load_types p, cfg
+        load_extensions p, cfg
         cfg
       end
 
       def default_config
         {
           'default' => {
-            'template' => '<div class="premonition {{type}}"><div class="fa {{meta.fa-icon}}"></div>'\
+            'template' => '<div class="premonition {{type}}"><i class="{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}"></i>'\
               '<div class="content">{% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}</div></div>',
-            'meta' => { 'fa-icon' => 'fa-check-square' },
+            'meta' => { 'pn-icon' => 'pn-square', 'fa-icon' => nil },
             'title' => nil
           },
           'types' => {
-            'note' => { 'meta' => { 'fa-icon' => 'fa-check-square' } },
-            'info' => { 'meta' => { 'fa-icon' => 'fa-info-circle' } },
-            'warning' => { 'meta' => { 'fa-icon' => 'fa-exclamation-circle' } },
-            'error' => { 'meta' => { 'fa-icon' => 'fa-exclamation-triangle' } }
-          }
+            'note' => { 'meta' => { 'pn-icon' => 'pn-note' } },
+            'info' => { 'meta' => { 'pn-icon' => 'pn-info' } },
+            'warning' => { 'meta' => { 'pn-icon' => 'pn-warn' } },
+            'error' => { 'meta' => { 'pn-icon' => 'pn-error' } },
+            'citation' => { 'meta' => { 'pn-icon' => 'pn-quote' }, 'template' =>
+              '<div class="premonition {{type}}"><i class="{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}"></i>'\
+              '<blockquote class="content blockquote"{% if attrs.cite %} cite="{{attrs.cite}}"{% endif %}>{{content}}{% if header %}'\
+              '<footer class="blockquote-footer">'\
+              '<cite title="{{title}}">{{title}}</cite></footer>{% endif %}</blockquote></div>' }
+          },
+          'extensions' => [
+            'md',
+            'markdown'
+          ]
         }
       end
 
@@ -45,10 +57,22 @@ module Jekyll
 
       def load_types(p, cfg)
         return if p['types'].nil?
+
         p['types'].each do |id, obj|
           t = type_config id, obj
           cfg['types'][id] = cfg['types'][id].merge(t) unless cfg['types'][id].nil?
           cfg['types'][id] = t if cfg['types'][id].nil?
+        end
+      end
+
+      def load_extensions(p, cfg)
+        return if p['extensions'].nil?
+        return unless p['extensions'].is_a?(Array)
+        return if p['extensions'].empty?
+
+        cfg['extensions'] = []
+        p['extensions'].each do |v|
+          cfg['extensions'] << v unless cfg['extensions'].include?(v)
         end
       end
 
