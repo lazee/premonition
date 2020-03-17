@@ -1,11 +1,10 @@
 # Premonition
 
-**DEMO: https://lazee.github.io/premonition-demo/ ([Source code](https://github.com/lazee/premonition-demo))**
+[Demo site](https://lazee.github.io/premonition-demo/) | [Source code](https://github.com/lazee/premonition-demo)
 
-Premonition is a [Jekyll](https://jekyllrb.com/) extension that makes it possible to add block-styled content to your site in plain Markdown.
+Premonition is a [Jekyll](https://jekyllrb.com/) extension that can convert Markdown block-quotes into beautiful block styled content. 
 
-By adding a special header to the first line of a [block quote](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes),
-Premonition will transform it into a markup block of your choice.
+By simply adding a special header to the first line of a [block quote](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes), Premonition will transform it into a markup block of your choice.
 
 <p align="center">
 <img src="https://github.com/lazee/premonition/raw/master/screen.png" height="450"/>
@@ -14,10 +13,9 @@ Premonition will transform it into a markup block of your choice.
 ## Features
 
  * Highly customizable (Create your own styles and templates easily)
- * Non-intrusive - Content are presented as block-quotes by any other renderer.
+ * Non-intrusive - Its just Markdown!
  * Easy to install
  * Comes with a stylesheet (Sass/Css) and templates for rendering typical information boxes.
- * Support for both Kramdown and RedCarpet.
 
 ## Requirements
 
@@ -30,7 +28,7 @@ Add the following line to your `Gemfile`:
 
 ```
 group :jekyll_plugins do
-  gem "premonition", "~> 2.0.0"
+  gem "premonition", "~> 2.0.1"
 end
 ```
 
@@ -126,7 +124,7 @@ If you want to override the template for one of the default types (like note), d
 ```yaml
 premonition:
   types:
-    - id: note
+    note:
       template: 'Liquid template goes here'
 ```
 
@@ -146,10 +144,10 @@ Each type must have unique id (lowercase letters).
 ~~~yaml
 premonition:
   types:
-    - id: custombox
+    custombox:
       meta:
         fa-icon: fa-exclamation-circle
-    - id: advanced
+    advanced:
       template: 'Liquid template goes here'
       default_title: 'MY BLOCK'
       meta:
@@ -171,4 +169,3 @@ The easiest way to get startet with Font Awesome is to add this to your html hea
 ~~~html
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 ~~~~
-
