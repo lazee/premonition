@@ -15,19 +15,23 @@ By simply adding a custom header to the first line of a [block quote](https://gi
  * Highly customizable (Create your own styles and templates easily)
  * Non-intrusive - Its just Markdown!
  * Easy to install
- * Ships with a stylesheet (Sass/Css) and templates for beautiful messages boxes and citation.
+ * Comes with a default stylesheet (Sass/Css) and templates for beautiful messages boxes and citation.
+ * Font Awesome 5 support
 
  ## Version 4 Highlights
 
  * Jekyll [Post Excerpts](https://jekyllrb.com/docs/posts/#post-excerpts) support
- * New install command for default stylesheets.
+ * New install command for the default stylesheet.
  * [Kramdown reference links](https://kramdown.gettalong.org/quickref.html#links-and-images) support
- * Jekyll 4 support (nut 3.7 still supported)
+ * Jekyll 4 support (3.7 still supported)
  * Added support for block attributes (See documentation further down)
  * Added new citation block type.
  * Minor fixes to the Premonition stylesheet.
- * Removed the need for external font css in default styles.
+ * Removed the need Font Awesome css in default stylesheet, but
+   Font Awesome is still supported.
  * Other bug fixes. See HISTORY.md.
+ 
+ See UPGRADE.md for help on how to upgrade from 2.x to 4.0.
  
 ## Requirements
 
@@ -35,7 +39,7 @@ By simply adding a custom header to the first line of a [block quote](https://gi
  
 ## Installation
 
-Add the following line to your `Gemfile`:
+Add the following line to your `Gemfile` inside your Jekyll project folder:
 
 ```
 group :jekyll_plugins do
@@ -43,14 +47,14 @@ group :jekyll_plugins do
 end
 ```
 
-Then acticate the the plugin in your `_config.yml`:
+Then add the the plugin to your `_config.yml`:
 
 ```yaml
 plugins:
     - premonition
 ```
 
-Now run 
+Now make sure to download the Premonition bundle:
 
 ```
 bundle install
@@ -58,8 +62,9 @@ bundle install
 
 ### Installing the default stylesheet
 
-Finally, if you want to use the standard Premonition styling, you should install the Premonition SASS file into your project.
-Open a terminal and go to the root folder of your Jekyll project, and run.
+Finally, if you want to use the standard Premonition styling (You realyl should), you should install the Premonition SASS file into your project.
+
+From your Jekyll project folder, run:
 
 ```
 bundle exec jekyll premonition-install
@@ -70,69 +75,85 @@ Both of these settings (destination folder and main file) can be configured. Run
 
 ## Usage
 
-Premonition blocks are really just a standard Markdown blockquote where the first line must be on a
-special format to activate the transformation.
+A Premonition block is really just a standard Markdown blockquote where the first line of the block must follow a certain syntax.
 
-`> [type] "Title"`
+`> [type] "Title" [ attributes... ]`
 
-The type can be any letter string. It is used to map a block to its type configuration and/or css.
-By default the type will be added as a class to the outer `<div>` of the
-generated markup.
+The type must be set to one of the default Premonition block types, or a type
+defined by you in `_config.yml`.
 
-Default types are:
+The default types are:
 
 * note
 * info
 * warning
 * error
+* citation
 
-The *Title* is the box header. It can be left empty to disable the box header:
+The *Title* will normally be the block header. Leave it empty to disable
+the header.
 
+*attributes* are in use by the Citation type, but can be skipped for the other default types. See section about custom types for more info.
+
+### Examples
+
+Simple note with no header
 ~~~markdown
-> warning ""
+> note ""
 > No headers in here
 ~~~
 
-Example:
+Note
+~~~markdown
+> note "I am a not"
+> The body of the note goes here. Premonition allows you to write any `Markdown` inside the block.
+~~~
 
+Info
+~~~markdown
+> info "I am some info"
+> The body of the info box goes here. Premonition allows you to write any `Markdown` inside the block.
+~~~
+
+Warning
 ~~~markdown
 > warning "I am a warning"
-> The body of the warning goes here. Premonition allows you to write any `Markdown` inside the block.
+> The body of the warning box goes here. Premonition allows you to write any `Markdown` inside the block.
 ~~~
 
-Premonition will then convert this into something like:
-
-~~~html
-<div class="premonition info"><i class="fas fa-check-square"></i><div class="content"><p class="header">Info</p><p>The body of the warning goes here. Premonition also allow you to write Markdown inside the block.</p></div></div>
+Error
+~~~markdown
+> error "I am an error"
+> The body of the error box goes here. Premonition allows you to write any `Markdown` inside the block.
 ~~~
 
-You can change the markup into anything you like by adding your own template.
+Citation (Note the use of attributes here)
+~~~markdown
+> citations "Mark Twain" [ cite = "mt" ]
+> I will be a beautiful citation quote
+~~~
 
 ## Configuration
 
-The templates can be customized in two eays. Either by replacing the default template, or by adding a custom template to a type.
+The templates can be customized in two eays. Either by replacing one of the default templates, or by adding a new type from scratch.
 
 All this is done inside your `_config.yml`.
 
 ### Templates
 
-Like Jekyll itself, Premonition uses the [Liquid Markup Language](https://github.com/Shopify/liquid) for its templates.
+Like Jekyll itself, Premonition uses the [Liquid Markup Language](https://github.com/Shopify/liquid) for templating.
 
-Five variables are available to the template engine:
+Six variables are available to the template engine:
 
 * *header* Boolean that tells you if a title exists and that a header should be added.
 * *content* The rendered content for your block.
 * *title* The block title.
 * *type* The type name (eg: note).
 * *meta* This is a hash that can contain any properties you would like to make available to your template. It is configured in `_config.yml`
+* *attrs* These are the attributes set in the block header. Like we did in the Citation example above.
 
-Our default template:
-
-~~~html
-<div class="premonition {{type}}">
-  <div class="fa {{meta.fa-icon}}"></div>
-  <div class="content">{% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}</div></div>
-~~~
+Take a look at our default template inside `lib/premonition/resources.rb` to
+get an idea of how this is done.
 
 #### Overriding the default template
 
@@ -173,12 +194,12 @@ premonition:
   types:
     custombox:
       meta:
-        fa-icon: fa-exclamation-circle
+        my-meta: 'By myself'
     advanced:
       template: 'Liquid template goes here'
       default_title: 'MY BLOCK'
       meta:
-        fa-icon: fa-exclamation-triangle
+        my-meta: 'By myself'
 ~~~
 
 ## More on styling
@@ -186,7 +207,36 @@ premonition:
 As described in the Installation section above, it is pretty easy to install the default stylesheet into your project.
 But we recognize that this design probably isn't a perfect fit for everybody. Luckily you can modify it :)
 
-Out recommendation is to install the default stylesheet and override it in another SASS file. This way it will be
+Our recommendation is to install the default stylesheet and override it in another SASS file. This way it will be
 easy to upgrade the default Stylesheet later without loosing your changes.
 
 The [Jekyll Documentation](https://jekyllrb.com/docs/assets/) describes the process of adding your own SASS files in great details.
+
+## Font Awesome support
+
+Premonition 4.x no longer depends on Font Awesome for its default stylesheet.
+But it is still supported.
+
+To add Font Awesome support you should add something like this
+to your head template file:
+
+```
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+```
+
+Feel free to install it any other way you prefer, as long as you follow their
+[license](https://fontawesome.com/license/free).
+
+Now you can swith to Font Awesome for any of the default types by adding
+`fa-icon` to a types meta object. Let's say you want to replace the default error box icon with the beautiful `fa-bug` icon from Font Awesome.
+
+Then just add this to your `_config.yml`:
+
+```yml
+premonition:
+  types:
+    error:
+      fa-icon: 'fa-bug'
+```
+
+Simple as that :)
