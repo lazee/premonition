@@ -9,7 +9,7 @@ Premonition is a higly customizable [Jekyll](https://jekyllrb.com/) plugin that 
 By simply adding a custom header to the first line of a [block quote](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes), Premonition will transform it into a markup block of your choice.
 
 <p align="center">
-<img src="https://github.com/lazee/premonition/raw/master/screen.png" height="450"/>
+<img src="https://github.com/lazee/premonition/raw/master/screen.png" height="550"/>
 </p>
 
 ## Features
