@@ -1,5 +1,7 @@
 # Premonition
 
+NOTE: This is the documentation for the version 4 release, coming soon. For 2.x documentation, please switch to the `2.x` branch.
+
 [Demo site](https://lazee.github.io/premonition-demo/) ([Source code](https://github.com/lazee/premonition-demo))
 
 Premonition is a higly customizable [Jekyll](https://jekyllrb.com/) plugin that can convert Markdown block-quotes into beautiful block styled content. 
@@ -43,7 +45,7 @@ Add the following line to your `Gemfile` inside your Jekyll project folder:
 
 ```
 group :jekyll_plugins do
-  gem "premonition", "~> 4.0.0"
+  gem "premonition", "4.0.0.pre3"
 end
 ```
 
