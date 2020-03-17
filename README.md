@@ -1,10 +1,10 @@
 # Premonition
 
-[Demo site](https://lazee.github.io/premonition-demo/) | [Source code](https://github.com/lazee/premonition-demo)
+[Demo site](https://lazee.github.io/premonition-demo/) ([Source code](https://github.com/lazee/premonition-demo))
 
-Premonition is a [Jekyll](https://jekyllrb.com/) extension that can convert Markdown block-quotes into beautiful block styled content. 
+Premonition is a higly customizable [Jekyll](https://jekyllrb.com/) plugin that can convert Markdown block-quotes into beautiful block styled content. 
 
-By simply adding a special header to the first line of a [block quote](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes), Premonition will transform it into a markup block of your choice.
+By simply adding a custom header to the first line of a [block quote](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes), Premonition will transform it into a markup block of your choice.
 
 <p align="center">
 <img src="https://github.com/lazee/premonition/raw/master/screen.png" height="450"/>
@@ -15,25 +15,24 @@ By simply adding a special header to the first line of a [block quote](https://g
  * Highly customizable (Create your own styles and templates easily)
  * Non-intrusive - Its just Markdown!
  * Easy to install
- * Comes with a stylesheet (Sass/Css) and templates for rendering the most common boxes.
+ * Ships with a stylesheet (Sass/Css) and templates for beautiful messages boxes and citation.
 
- ## Version 4 highlights
+ ## Version 4 Highlights
 
- * Added Jekyll Excerpts support
- * Kramdown reference links now supported
- * Jekyll 4 support
- * Added support for block attributes. This is in use in the new citation 
-   block type: 
-   
-   `> citation "-- jakob" [ cite = "jvn" ]`
- * Other minor bug fixes
-
-
+ * Jekyll [Post Excerpts](https://jekyllrb.com/docs/posts/#post-excerpts) support
+ * New install command for default stylesheets.
+ * [Kramdown reference links](https://kramdown.gettalong.org/quickref.html#links-and-images) support
+ * Jekyll 4 support (nut 3.7 still supported)
+ * Added support for block attributes (See documentation further down)
+ * Added new citation block type.
+ * Minor fixes to the Premonition stylesheet.
+ * Removed the need for external font css in default styles.
+ * Other bug fixes. See HISTORY.md.
+ 
 ## Requirements
 
- * Jekyll 3.7.x or higher
- * FontAwesome 5.x
-
+ * Jekyll 3.7.x or higher (We recommend the new Jekyll 4)
+ 
 ## Installation
 
 Add the following line to your `Gemfile`:
@@ -44,14 +43,30 @@ group :jekyll_plugins do
 end
 ```
 
-Then add Premonition to `plugins` in `_config.yml`:
+Then acticate the the plugin in your `_config.yml`:
 
 ```yaml
 plugins:
     - premonition
 ```
 
-Finally run `bundle install`
+Now run 
+
+```
+bundle install
+```
+
+### Installing the default stylesheet
+
+Finally, if you want to use the standard Premonition styling, you should install the Premonition SASS file into your project.
+Open a terminal and go to the root folder of your Jekyll project, and run.
+
+```
+bundle exec jekyll premonition-install
+```
+
+This will add a `premonition.scss` file to your `_sass` folder and ask if you want to import this file into your `assets/main.scss` file.
+Both of these settings (destination folder and main file) can be configured. Run `bundle exec jekyll premonition-install --help` to see how.
 
 ## Usage
 
@@ -166,24 +181,12 @@ premonition:
         fa-icon: fa-exclamation-triangle
 ~~~
 
-## Styling
+## More on styling
 
-Premonition comes with a stylesheet you can copy into to your project. Either
-as a Sass file or as plain css. The [Jekyll Documentation](https://jekyllrb.com/docs/assets/) describes the process in great details.
+As described in the Installation section above, it is pretty easy to install the default stylesheet into your project.
+But we recognize that this design probably isn't a perfect fit for everybody. Luckily you can modify it :)
 
-Download the stylesheet from here : https://github.com/lazee/premonition/tree/master/stylesheet
+Out recommendation is to install the default stylesheet and override it in another SASS file. This way it will be
+easy to upgrade the default Stylesheet later without loosing your changes.
 
-In order to get the fancy icons, you will have to add [Font Awesome](https://fontawesome.com/) to your html header file.
-Be aware that you have to use v5.x of Font Awesome together with our CSS.
-
-The easiest way to get startet with Font Awesome is to add this to your html header file:
-
-~~~html
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
-~~~~
-
-If you need backward compability with v4:
-
-~~~html
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css">
-~~~
+The [Jekyll Documentation](https://jekyllrb.com/docs/assets/) describes the process of adding your own SASS files in great details.

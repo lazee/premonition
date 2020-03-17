@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'jekyll'
+require_relative 'premonition/commands/install_scss.rb'
 require_relative 'premonition/attributes/error'
 require_relative 'premonition/attributes/stacker'
 require_relative 'premonition/attributes/parser'

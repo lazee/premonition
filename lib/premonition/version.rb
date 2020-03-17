@@ -2,6 +2,6 @@
 
 module Jekyll
   module Premonition
-    VERSION = '4.0.0'
+    VERSION = '4.0.0.pre1'
   end
 end

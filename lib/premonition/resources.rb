@@ -27,18 +27,18 @@ module Jekyll
       def default_config
         {
           'default' => {
-            'template' => '<div class="premonition {{type}}"><i class="fas {{meta.fa-icon}}"></i>'\
+            'template' => '<div class="premonition {{type}}"><i class="{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}"></i>'\
               '<div class="content">{% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}</div></div>',
-            'meta' => { 'fa-icon' => 'fa-check-square' },
+            'meta' => { 'pn-icon' => 'pn-square', 'fa-icon' => nil },
             'title' => nil
           },
           'types' => {
-            'note' => { 'meta' => { 'fa-icon' => 'fa-check-square' } },
-            'info' => { 'meta' => { 'fa-icon' => 'fa-info-circle' } },
-            'warning' => { 'meta' => { 'fa-icon' => 'fa-exclamation-circle' } },
-            'error' => { 'meta' => { 'fa-icon' => 'fa-exclamation-triangle' } },
-            'citation' => { 'meta' => { 'fa-icon' => 'fa-quote-left' }, 'template' =>
-              '<div class="premonition {{type}}"><i class="fas {{meta.fa-icon}}"></i>'\
+            'note' => { 'meta' => { 'pn-icon' => 'pn-note' } },
+            'info' => { 'meta' => { 'pn-icon' => 'pn-info' } },
+            'warning' => { 'meta' => { 'pn-icon' => 'pn-warn' } },
+            'error' => { 'meta' => { 'pn-icon' => 'pn-error', 'fa-icon' => 'fa-bug' } },
+            'citation' => { 'meta' => { 'pn-icon' => 'pn-quote' }, 'template' =>
+              '<div class="premonition {{type}}"><i class="{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}"></i>'\
               '<blockquote class="content blockquote"{% if attrs.cite %} cite="{{attrs.cite}}"{% endif %}>{{content}}{% if header %}'\
               '<footer class="blockquote-footer">'\
               '<cite title="{{title}}">{{title}}</cite></footer>{% endif %}</blockquote></div>' }

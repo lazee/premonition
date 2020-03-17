@@ -93,8 +93,8 @@ module Jekyll
 
         unless @resources.config['types'].include? block['type']
           c['title'] = ''
-          c['meta'] = { 'fa-icon' => 'fa-bug' }
-          c['template'] = '<div class="premonition error"><div class="fa {{meta.fa-icon}}"></div>'\
+          c['meta'] = { 'pn-icon' => 'pn-error' }
+          c['template'] = '<div class="premonition error"><div class="fa {{meta.pn-icon}}"></div>'\
           '<div class="content"><p class="header">PREMONITION ERROR: Invalid box type</p>You have specified an invalid box type "{{type}}". You can customize your own box types in `_config.yml`. See documentation for help.</div></div>'
           return c
         end
