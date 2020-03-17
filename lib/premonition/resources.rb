@@ -36,7 +36,7 @@ module Jekyll
             'note' => { 'meta' => { 'pn-icon' => 'pn-note' } },
             'info' => { 'meta' => { 'pn-icon' => 'pn-info' } },
             'warning' => { 'meta' => { 'pn-icon' => 'pn-warn' } },
-            'error' => { 'meta' => { 'pn-icon' => 'pn-error', 'fa-icon' => 'fa-bug' } },
+            'error' => { 'meta' => { 'pn-icon' => 'pn-error' } },
             'citation' => { 'meta' => { 'pn-icon' => 'pn-quote' }, 'template' =>
               '<div class="premonition {{type}}"><i class="{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}"></i>'\
               '<blockquote class="content blockquote"{% if attrs.cite %} cite="{{attrs.cite}}"{% endif %}>{{content}}{% if header %}'\
