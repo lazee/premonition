@@ -62,7 +62,7 @@ bundle install
 
 ### Installing the default stylesheet
 
-Finally, if you want to use the standard Premonition styling (You realyl should), you should install the Premonition SASS file into your project.
+Finally, if you want to use the standard Premonition styling (You really should!), then you have to install the SASS stylesheet.
 
 From your Jekyll project folder, run:
 
@@ -70,8 +70,10 @@ From your Jekyll project folder, run:
 bundle exec jekyll premonition-install
 ```
 
-This will add a `premonition.scss` file to your `_sass` folder and ask if you want to import this file into your `assets/main.scss` file.
+This will add the `premonition.scss` file to your `_sass` folder and ask if you want to import this file into your `assets/main.scss` file.
 Both of these settings (destination folder and main file) can be configured. Run `bundle exec jekyll premonition-install --help` to see how.
+
+If you prefer CSS, then download the stylesheet/premonition.css file directly from this repo.
 
 ## Usage
 
