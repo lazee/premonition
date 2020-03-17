@@ -23,8 +23,8 @@ module Jekyll
             puts '== Installing Premonition Stylesheet and resources =="'
             puts '-- premonition.scss --'
             dest = opts['dest'].nil? || opts['dest'].empty? ? './_sass/' : File.join(opts['dest'], '')
-            main = opts['main'].nil? || opts['main'].empty? ? './assets/main.scss' : opts['main']
-            raise StandardError, "#{dest} folder does not exist" unless Dir.exist?(dest)
+            main = opts['main'].nil? || opts['main'].empty? ? './assets/css/styles.scss' : opts['main']
+            raise StandardError, "#{dest} folder does not exist. Create it manually, and run script again." unless Dir.exist?(dest)
             raise StandardError, "#{main} does not exist" unless File.exist?(main)
 
             uri = URI('https://raw.githubusercontent.com/lazee/premonition/master/stylesheet/premonition.scss')
