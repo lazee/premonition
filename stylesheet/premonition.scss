@@ -101,7 +101,7 @@
     background-repeat: no-repeat;
     background-color: transparent;
     fill: red;
-    background-image: url($pre + $color + $post);
+    background-image: url($pre + "%23" + $color + $post);
     background-size: 28px 28px;
     width: 28px;
     height: 28px;
