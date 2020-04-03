@@ -24,23 +24,50 @@ module Jekyll
         cfg
       end
 
+      def default_template
+        <<~TEMPLATE
+          <div class="premonition {% if meta.style %}{{meta.style}} {% endif %}{{type}}">
+            <i class="{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}"></i>
+            <div class="content">
+              {% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}
+            </div>
+          </div>
+        TEMPLATE
+      end
+
+      def citation_template
+        <<~TEMPLATE
+          <div class="premonition {% if meta.style %}{{meta.style}} {% endif %}{{type}}">
+            <i class="{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}"></i>
+            <blockquote class="content blockquote"{% if attrs.cite %} cite="{{attrs.cite}}"{% endif %}>
+              {{content}}
+              {% if header %}
+              <footer class="blockquote-footer">
+                <cite title="{{title}}">{{title}}</cite>
+              </footer>
+              {% endif %}
+            </blockquote>
+          </div>
+        TEMPLATE
+      end
+
       def default_config
         {
           'default' => {
-            'template' => '<div class="premonition {{type}}"><div class="fa {{meta.fa-icon}}"></div>'\
-              '<div class="content">{% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}</div></div>',
-            'meta' => { 'fa-icon' => 'fa-check-square' },
+            'template' => default_template,
+            'meta' => { 'pn-icon' => 'pn-square', 'fa-icon' => nil },
             'title' => nil
           },
           'types' => {
-            'note' => { 'meta' => { 'fa-icon' => 'fa-check-square' } },
-            'info' => { 'meta' => { 'fa-icon' => 'fa-info-circle' } },
-            'warning' => { 'meta' => { 'fa-icon' => 'fa-exclamation-circle' } },
-            'error' => { 'meta' => { 'fa-icon' => 'fa-exclamation-triangle' } }
+            'note' => { 'meta' => { 'pn-icon' => 'pn-note' } },
+            'info' => { 'meta' => { 'pn-icon' => 'pn-info' } },
+            'warning' => { 'meta' => { 'pn-icon' => 'pn-warn' } },
+            'error' => { 'meta' => { 'pn-icon' => 'pn-error' } },
+            'citation' => { 'meta' => { 'pn-icon' => 'pn-quote' }, 'template' => citation_template }
           },
-          'extensions' => [
-            'md',
-            'markdown'
+          'extensions' => %w[
+            md
+            markdown
           ]
         }
       end

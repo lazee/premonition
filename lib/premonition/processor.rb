@@ -17,9 +17,9 @@ module Jekyll
           if is_code_block
             o << l
           elsif blockquote?(l) && empty_block?(b)
-            if (m = l.match(/^\s*\>\s+([a-z]+)\s+\"(.*)\"$/i))
-              y, t = m.captures
-              b = { 'title' => t.strip, 'type' => y.strip.downcase, 'content' => [] }
+            if (m = l.match(/^\s*\>\s+([a-z]+)\s+\"(.*)\"\s+(\[.*\])?\s*$/i))
+              y, t, attrs = m.captures
+              b = { 'title' => t.strip, 'type' => y.strip.downcase, 'content' => [], 'attrs' => attrs }
             else
               o << l
             end
@@ -63,6 +63,12 @@ module Jekyll
         t = create_resource(block)
         a = block['content'] + references
         c = "#{@resources.markdown.convert(a.join("\n"))}\n\n"
+        attrs = {}
+
+        unless block['attrs'].nil?
+          parser = Jekyll::Premonition::Attributes::Parser.new(block['attrs'])
+          attrs = parser.attributes
+        end
 
         template = Liquid::Template.parse(t['template'], error_mode: :strict)
         template.render(
@@ -71,7 +77,8 @@ module Jekyll
             'title' => t['title'],
             'content' => c,
             'type' => block['type'],
-            'meta' => t['meta']
+            'meta' => t['meta'],
+            'attrs' => attrs
           },
           strict_variables: true
         )
@@ -86,8 +93,8 @@ module Jekyll
 
         unless @resources.config['types'].include? block['type']
           c['title'] = ''
-          c['meta'] = { 'fa-icon' => 'fa-bug' }
-          c['template'] = '<div class="premonition error"><div class="fa {{meta.fa-icon}}"></div>'\
+          c['meta'] = { 'pn-icon' => 'pn-error' }
+          c['template'] = '<div class="premonition error"><div class="fa {{meta.pn-icon}}"></div>'\
           '<div class="content"><p class="header">PREMONITION ERROR: Invalid box type</p>You have specified an invalid box type "{{type}}". You can customize your own box types in `_config.yml`. See documentation for help.</div></div>'
           return c
         end

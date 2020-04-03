@@ -11,7 +11,7 @@ module Jekyll
       end
 
       def generate_excerpt?(doc)
-        !doc.data['excerpt_separator'].empty?
+        !doc.data['excerpt_separator'].nil? && !doc.data['excerpt_separator'].empty?
       end
 
       def process?(resources, doc)

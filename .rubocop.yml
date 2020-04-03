@@ -2,7 +2,7 @@ Style/Encoding:
   Enabled: true
 
 Metrics/LineLength:
-  Max: 120
+  Max: 140
 
 Metrics/AbcSize:
   Enabled: false
@@ -13,8 +13,14 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Enabled: false
 
+Metrics/ClassLength:
+  Enabled: false
+
 Metrics/PerceivedComplexity:
   Enabled: false
 
 Style/Documentation:
+  Enabled: false
+
+Layout/EmptyLineAfterGuardClause:
   Enabled: false
