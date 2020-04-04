@@ -26,28 +26,28 @@ module Jekyll
 
       def default_template
         <<~TEMPLATE
-        <div class="premonition {% if meta.style %}{{meta.style}} {% endif %}{{type}}">
-          <i class="{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}"></i>
-          <div class="content">
-            {% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}
+          <div class="premonition {% if meta.style %}{{meta.style}} {% endif %}{{type}}">
+            <i class="{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}"></i>
+            <div class="content">
+              {% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}
+            </div>
           </div>
-        </div>
         TEMPLATE
       end
 
       def citation_template
         <<~TEMPLATE
-        <div class="premonition {% if meta.style %}{{meta.style}} {% endif %}{{type}}">
-          <i class="{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}"></i>
-          <blockquote class="content blockquote"{% if attrs.cite %} cite="{{attrs.cite}}"{% endif %}>
-            {{content}}
-            {% if header %}
-            <footer class="blockquote-footer">
-              <cite title="{{title}}">{{title}}</cite>
-            </footer>
-            {% endif %}
-          </blockquote>
-        </div>
+          <div class="premonition {% if meta.style %}{{meta.style}} {% endif %}{{type}}">
+            <i class="{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}"></i>
+            <blockquote class="content blockquote"{% if attrs.cite %} cite="{{attrs.cite}}"{% endif %}>
+              {{content}}
+              {% if header %}
+              <footer class="blockquote-footer">
+                <cite title="{{title}}">{{title}}</cite>
+              </footer>
+              {% endif %}
+            </blockquote>
+          </div>
         TEMPLATE
       end
 
@@ -65,9 +65,9 @@ module Jekyll
             'error' => { 'meta' => { 'pn-icon' => 'pn-error' } },
             'citation' => { 'meta' => { 'pn-icon' => 'pn-quote' }, 'template' => citation_template }
           },
-          'extensions' => [
-            'md',
-            'markdown'
+          'extensions' => %w[
+            md
+            markdown
           ]
         }
       end

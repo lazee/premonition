@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    premonition (4.0.0)
-      jekyll (>= 2.0, < 5.0)
+    premonition (4.0.0.pre3)
+      jekyll (>= 3.7, < 5.0)
 
 GEM
   remote: https://rubygems.org/
@@ -10,6 +10,7 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     ansi (1.5.0)
+    ast (2.4.0)
     colorator (1.1.0)
     concurrent-ruby (1.1.6)
     em-websocket (0.5.1)
@@ -21,6 +22,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    jaro_winkler (1.5.4)
     jekyll (4.0.0)
       addressable (~> 2.4)
       colorator (~> 1.0)
@@ -50,19 +52,39 @@ GEM
     mercenary (0.3.6)
     minitest (4.7.5)
     mocha (1.11.2)
+    parallel (1.19.1)
+    parser (2.7.0.5)
+      ast (~> 2.4.0)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
+    power_assert (1.1.7)
     public_suffix (4.0.3)
+    rainbow (3.0.0)
     rake (13.0.1)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rouge (3.16.0)
+    rouge (3.17.0)
+    rubocop (0.71.0)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.6)
+      rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-jekyll (0.10.0)
+      rubocop (>= 0.68.0, < 0.72.0)
+      rubocop-performance (~> 1.2)
+    rubocop-performance (1.5.2)
+      rubocop (>= 0.71.0)
+    ruby-progressbar (1.10.1)
     safe_yaml (1.0.5)
     sassc (2.2.1)
       ffi (~> 1.9)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
+    test-unit (3.3.5)
+      power_assert
     turn (0.9.7)
       ansi
       minitest (~> 4)
@@ -76,6 +98,9 @@ DEPENDENCIES
   mocha (~> 1.11.2)
   premonition!
   rake (~> 13.0.1)
+  rubocop (>= 0.68.0, < 0.72.0)
+  rubocop-jekyll (~> 0.10.0)
+  test-unit (~> 3.3.5)
   turn (~> 0.9.7)
 
 BUNDLED WITH
