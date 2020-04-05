@@ -46,7 +46,6 @@ module Jekyll
 
           until @buffer.eos?
             char = @buffer.getch
-
             case @stack.last.type
             when 0 # Outside block mode
               push_stacker(1) if char == '['

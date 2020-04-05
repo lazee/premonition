@@ -1,5 +1,17 @@
 # Developers guide
 
+
+## Development
+
+* Prefer Visual Studio code with these plugins
+  * EditorConfig for VS Code
+  * Ruby by Peng Lv
+  * VSCode Ruby by Stafford Brunk
+  * ruby-rubocop ny misogi
+
+  Or another editor that respects the settings in `.editorconfig` and `.rubocop.yml`
+
+  
 ## Releasing
 
 * increase version number in lib/premonition/version.rb

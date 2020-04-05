@@ -19,6 +19,9 @@ Metrics/ClassLength:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+Naming/MethodParameterName:
+  MinNameLength: 1
+
 Style/Documentation:
   Enabled: false
 
