@@ -3,11 +3,10 @@
 require 'test_helper'
 
 class ParserTest < Test::Unit::TestCase
-  def setup
 
-  end
+  # def setup; end
 
-  def teardown; end
+  # def teardown; end
 
   def test_parse1
     parser = Jekyll::Premonition::Attributes::Parser.new('> "info" [  foo = still ] ')

@@ -8,7 +8,7 @@ class ConfigTest < Test::Unit::TestCase
     @resources = Jekyll::Premonition::Resources.new(dc)
   end
 
-  def teardown; end
+  # def teardown; end
 
   def test_load_defaults
     cfg = @resources.config

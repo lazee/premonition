@@ -2,15 +2,18 @@
 
 module Jekyll
   module Premonition
+    # Class for loading the Premonition configuration and preparing it for use.
     class Resources
       attr_reader :config
       attr_reader :markdown
 
       def initialize(site_config)
         @config = load site_config
+        # Setup a new Markdown renderer.
         @markdown = Converters::Markdown.new site_config
       end
 
+      # Load the configuration of Premonition from Jekyll site configuration object.
       def load(site_config)
         cfg = default_config
         p = site_config['premonition'] || {}
@@ -51,6 +54,7 @@ module Jekyll
         TEMPLATE
       end
 
+      # Setup the default configuration and types
       def default_config
         {
           'default' => {
@@ -72,11 +76,13 @@ module Jekyll
         }
       end
 
+      # Basic configuration validation
       def validate_defaults(df, prem)
         fail 'meta must be a hash' if !df['meta'].nil? && !df['meta'].is_a?(Hash)
         fail 'types must be a hash' if !prem['types'].nil? && !prem['types'].is_a?(Hash)
       end
 
+      # Load extra Premonition types configured/overriden in _config.yml
       def load_types(p, cfg)
         return if p['types'].nil?
 
@@ -87,6 +93,9 @@ module Jekyll
         end
       end
 
+      # Load extra extensions from config.
+      #
+      # We need this when looking for excerpts
       def load_extensions(p, cfg)
         return if p['extensions'].nil?
         return unless p['extensions'].is_a?(Array)
@@ -98,6 +107,7 @@ module Jekyll
         end
       end
 
+      # Validate a configured type and return as type hash
       def type_config(id, t)
         validate_type(id, t)
         {
@@ -107,6 +117,7 @@ module Jekyll
         }
       end
 
+      # Type validation
       def validate_type(id, t)
         fail 'id missing from type' if id.nil?
         fail "id can only be lowercase letters: #{id}" unless id[/[a-z]+/] == id

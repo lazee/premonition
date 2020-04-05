@@ -2,11 +2,18 @@
 
 module Jekyll
   module Premonition
+    # Class that does all of the rendering magic within Premonition.
     class Processor
       def initialize(resources)
         @resources = resources
       end
 
+      # Called by the registered pre_render hooks.
+      #
+      # This function takes markdown content as input and converts
+      # all the block quotes, with a Premonition header, into html.
+      #
+      # content - Markdown content
       def adder(content)
         o = []
         references = load_references(content)
@@ -39,6 +46,9 @@ module Jekyll
 
       private
 
+      # Find all the Kramdown reference name links.
+      # https://kramdown.gettalong.org/quickref.html#links-and-images
+      # https://github.com/lazee/premonition/issues/10
       def load_references(content)
         refs = ["\n"]
         content.each_line do |l|
@@ -84,6 +94,19 @@ module Jekyll
         )
       end
 
+      def error_template
+        <<~TEMPLATE
+          <div class="premonition error">
+            <div class="fa {{meta.pn-icon}}"></div>
+            <div class="content">
+              <p class="header">PREMONITION ERROR: Invalid box type</p>
+              You have specified an invalid box type "{{type}}". You can customize your own box types in `_config.yml`.
+              See documentation for more help.
+            </div>
+          </div>
+        TEMPLATE
+      end
+
       def create_resource(block)
         c = {
           'template' => @resources.config['default']['template'],
@@ -94,8 +117,7 @@ module Jekyll
         unless @resources.config['types'].include? block['type']
           c['title'] = ''
           c['meta'] = { 'pn-icon' => 'pn-error' }
-          c['template'] = '<div class="premonition error"><div class="fa {{meta.pn-icon}}"></div>'\
-          '<div class="content"><p class="header">PREMONITION ERROR: Invalid box type</p>You have specified an invalid box type "{{type}}". You can customize your own box types in `_config.yml`. See documentation for help.</div></div>'
+          c['template'] = error_template
           return c
         end
 
