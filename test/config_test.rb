@@ -15,8 +15,12 @@ class ConfigTest < Test::Unit::TestCase
     assert_equal(cfg['default']['title'], nil)
     assert_equal(
       cfg['default']['template'],
-      '<div class="premonition {{type}}"><div class="fa {{meta.fa-icon}}"></div>'\
-      '<div class="content">{% if header %}<p class="header">{{title}}</p>{% endif %}{{content}}</div></div>'
+      "<div class=\"premonition {% if meta.style %}{{meta.style}} {% endif %}{{type}}\">\n" +
+      "  <i class=\"{% if meta.fa-icon %}fas {{meta.fa-icon}}{% else %}premonition {{meta.pn-icon}}{% endif %}\"></i>\n" +
+      "  <div class=\"content\">\n" +
+      "    {% if header %}<p class=\"header\">{{title}}</p>{% endif %}{{content}}\n" +
+      "  </div>\n" +
+      "</div>\n"
     )
   end
 
