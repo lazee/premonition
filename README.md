@@ -1,10 +1,8 @@
 # Premonition
 
-NOTE: This is the documentation for the version 4 release, coming soon. For 2.x documentation, please switch to the `2.x` branch.
-
 [Demo site](https://lazee.github.io/premonition-demo/) ([Source code](https://github.com/lazee/premonition-demo))
 
-Premonition is a higly customizable [Jekyll](https://jekyllrb.com/) plugin that can convert Markdown block-quotes into beautiful block styled content. 
+Premonition is a higly customizable [Jekyll](https://jekyllrb.com/) plugin that can convert Markdown block-quotes into beautiful block styled content.
 
 By simply adding a custom header to the first line of a [block quote](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes), Premonition will transform it into a markup block of your choice.
 
@@ -14,38 +12,38 @@ By simply adding a custom header to the first line of a [block quote](https://gi
 
 ## Features
 
- * Highly customizable (Create your own styles and templates easily)
- * Non-intrusive - Its just Markdown!
- * Easy to install
- * Comes with a default stylesheet (Sass/Css) and templates for beautiful messages boxes and citation.
- * Font Awesome 5 support
+- Highly customizable (Create your own styles and templates easily)
+- Non-intrusive - Its just Markdown!
+- Easy to install
+- Comes with a default stylesheet (Sass/Css) and templates for beautiful messages boxes and citation.
+- Font Awesome 5 support
 
- ## Version 4 Highlights
+## Version 4 Highlights
 
- * Jekyll [Post Excerpts](https://jekyllrb.com/docs/posts/#post-excerpts) support
- * New install command for the default stylesheet.
- * [Kramdown reference links](https://kramdown.gettalong.org/quickref.html#links-and-images) support
- * Jekyll 4 support (3.7 still supported)
- * Added support for block attributes (See documentation further down)
- * Added new citation block type.
- * Minor fixes to the Premonition stylesheet.
- * Removed the need Font Awesome css in default stylesheet, but
-   Font Awesome is still supported.
- * Other bug fixes. See HISTORY.md.
- 
- See UPGRADE.md for help on how to upgrade from 2.x to 4.0.
- 
+- Jekyll [Post Excerpts](https://jekyllrb.com/docs/posts/#post-excerpts) support
+- New install command for the default stylesheet.
+- [Kramdown reference links](https://kramdown.gettalong.org/quickref.html#links-and-images) support
+- Jekyll 4 support (3.7 still supported)
+- Added support for block attributes (See documentation further down)
+- Added new citation block type.
+- Minor fixes to the Premonition stylesheet.
+- Removed the need Font Awesome css in default stylesheet, but
+  Font Awesome is still supported.
+- Other bug fixes. See HISTORY.md.
+
+See UPGRADE.md for help on how to upgrade from 2.x to 4.0.
+
 ## Requirements
 
- * Jekyll 3.7.x or higher (We recommend the new Jekyll 4)
- 
+- Jekyll 3.7.x or higher (We recommend the new Jekyll 4)
+
 ## Installation
 
 Add the following line to your `Gemfile` inside your Jekyll project folder:
 
 ```
 group :jekyll_plugins do
-  gem "premonition", "4.0.0.pre3"
+  gem "premonition", "4.0.0"
 end
 ```
 
@@ -53,7 +51,7 @@ Then add the the plugin to your `_config.yml`:
 
 ```yaml
 plugins:
-    - premonition
+  - premonition
 ```
 
 Now make sure to download the Premonition bundle:
@@ -89,54 +87,60 @@ defined by you in `_config.yml`.
 
 The default types are:
 
-* note
-* info
-* warning
-* error
-* citation
+- note
+- info
+- warning
+- error
+- citation
 
-The *Title* will normally be the block header. Leave it empty to disable
+The _Title_ will normally be the block header. Leave it empty to disable
 the header.
 
-*attributes* are in use by the Citation type, but can be skipped for the other default types. See section about custom types for more info.
+_attributes_ are in use by the Citation type, but can be skipped for the other default types. See section about custom types for more info.
 
 ### Examples
 
 Simple note with no header
-~~~markdown
+
+```markdown
 > note ""
 > No headers in here
-~~~
+```
 
 Note
-~~~markdown
+
+```markdown
 > note "I am a not"
 > The body of the note goes here. Premonition allows you to write any `Markdown` inside the block.
-~~~
+```
 
 Info
-~~~markdown
+
+```markdown
 > info "I am some info"
 > The body of the info box goes here. Premonition allows you to write any `Markdown` inside the block.
-~~~
+```
 
 Warning
-~~~markdown
+
+```markdown
 > warning "I am a warning"
 > The body of the warning box goes here. Premonition allows you to write any `Markdown` inside the block.
-~~~
+```
 
 Error
-~~~markdown
+
+```markdown
 > error "I am an error"
 > The body of the error box goes here. Premonition allows you to write any `Markdown` inside the block.
-~~~
+```
 
 Citation (Note the use of attributes here)
-~~~markdown
+
+```markdown
 > citations "Mark Twain" [ cite = "mt" ]
 > I will be a beautiful citation quote
-~~~
+```
 
 ## Configuration
 
@@ -150,12 +154,12 @@ Like Jekyll itself, Premonition uses the [Liquid Markup Language](https://github
 
 Six variables are available to the template engine:
 
-* *header* Boolean that tells you if a title exists and that a header should be added.
-* *content* The rendered content for your block.
-* *title* The block title.
-* *type* The type name (eg: note).
-* *meta* This is a hash that can contain any properties you would like to make available to your template. It is configured in `_config.yml`
-* *attrs* These are the attributes set in the block header. Like we did in the Citation example above.
+- _header_ Boolean that tells you if a title exists and that a header should be added.
+- _content_ The rendered content for your block.
+- _title_ The block title.
+- _type_ The type name (eg: note).
+- _meta_ This is a hash that can contain any properties you would like to make available to your template. It is configured in `_config.yml`
+- _attrs_ These are the attributes set in the block header. Like we did in the Citation example above.
 
 Take a look at our default template inside `lib/premonition/resources.rb` to
 get an idea of how this is done.
@@ -167,7 +171,7 @@ You can override the default template like this in your `_config.yml`:
 ```yaml
 premonition:
   default:
-    template: 'Liquid template goes here'
+    template: "Liquid template goes here"
 ```
 
 #### Overriding the template for a default type
@@ -178,7 +182,7 @@ If you want to override the template for one of the default types (like note), d
 premonition:
   types:
     note:
-      template: 'Liquid template goes here'
+      template: "Liquid template goes here"
 ```
 
 ### Adding custom types
@@ -188,24 +192,24 @@ of the defaults, or add a new one.
 
 For each type you can
 
-* Add a custom template (template)
-* Set a default title (default_title)
-* Set meta data that can be used inside the template
+- Add a custom template (template)
+- Set a default title (default_title)
+- Set meta data that can be used inside the template
 
 Each type must have unique id (lowercase letters).
 
-~~~yaml
+```yaml
 premonition:
   types:
     custombox:
       meta:
-        my-meta: 'By myself'
+        my-meta: "By myself"
     advanced:
-      template: 'Liquid template goes here'
-      default_title: 'MY BLOCK'
+      template: "Liquid template goes here"
+      default_title: "MY BLOCK"
       meta:
-        my-meta: 'By myself'
-~~~
+        my-meta: "By myself"
+```
 
 ## More on styling
 
@@ -241,7 +245,7 @@ Then just add this to your `_config.yml`:
 premonition:
   types:
     error:
-      fa-icon: 'fa-bug'
+      fa-icon: "fa-bug"
 ```
 
 Simple as that :)
