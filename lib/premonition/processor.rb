@@ -31,7 +31,7 @@ module Jekyll
               o << l
             end
           elsif blockquote?(l) && !empty_block?(b)
-            b['content'] << l.match(/^\s*\>\s?(.*)$/i).captures[0]
+            b['content'] << l.to_s.match(/^\s*\>\s?(.*)$/i).captures[0]
           else
             if !blockquote?(l) && !empty_block?(b)
               o << render_block(b, references)
