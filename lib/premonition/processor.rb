@@ -52,7 +52,7 @@ module Jekyll
       def load_references(content)
         refs = ["\n"]
         content.each_line do |l|
-          refs << l if l.strip!.match(/^\[.*\]:.*\".*\"$/i)
+          refs << l if l.to_s.strip!.match(/^\[.*\]:.*\".*\"$/i)
         end
         refs
       end
