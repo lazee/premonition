@@ -24,7 +24,7 @@ module Jekyll
           if is_code_block
             o << l
           elsif blockquote?(l) && empty_block?(b)
-            if (m = l.match(/^\s*\>\s+([a-z]+)\s+\"(.*)\"\s+(\[.*\])?\s*$/i))
+            if (m = l.to_s.match(/^\s*\>\s+([a-z]+)\s+\"(.*)\"\s+(\[.*\])?\s*$/i))
               y, t, attrs = m.captures
               b = { 'title' => t.strip, 'type' => y.strip.downcase, 'content' => [], 'attrs' => attrs }
             else
