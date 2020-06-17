@@ -53,7 +53,7 @@ module Jekyll
         refs = ["\n"]
         content.each_line do |l|
           unless l.nil? || l == 0 || (l.is_a? String) 
-          refs << l if l.to_s.strip!.match(/^\[.*\]:.*\".*\"$/i)
+            refs << l if l.to_s.strip!.match(/^\[.*\]:.*\".*\"$/i)
           end
         end
         refs
