@@ -58,7 +58,7 @@ module Jekyll
       end
 
       def code_block_line?(line)
-        line.strip.start_with?('~~~')
+        line.strip.start_with?('~~~') || line.strip.start_with?('```')
       end
 
       def blockquote?(line)
