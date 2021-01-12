@@ -24,14 +24,14 @@ module Jekyll
           if is_code_block
             o << l
           elsif blockquote?(l) && empty_block?(b)
-            if (m = l.match(/^\s*\>\s+([a-z]+)\s+\"(.*)\"\s+(\[.*\])?\s*$/i))
+            if (m = l.to_s.match(/^\s*\>\s+([a-z]+)\s+\"(.*)\"\s+(\[.*\])?\s*$/i))
               y, t, attrs = m.captures
               b = { 'title' => t.strip, 'type' => y.strip.downcase, 'content' => [], 'attrs' => attrs }
             else
               o << l
             end
           elsif blockquote?(l) && !empty_block?(b)
-            b['content'] << l.match(/^\s*\>\s?(.*)$/i).captures[0]
+            b['content'] << l.to_s.match(/^\s*\>\s?(.*)$/i).captures[0]
           else
             if !blockquote?(l) && !empty_block?(b)
               o << render_block(b, references)
@@ -52,7 +52,9 @@ module Jekyll
       def load_references(content)
         refs = ["\n"]
         content.each_line do |l|
-          refs << l if l.strip!.match(/^\[.*\]:.*\".*\"$/i)
+          unless l.nil? || l == 0 || (l.is_a? String) 
+            refs << l if l.to_s.strip!.match(/^\[.*\]:.*\".*\"$/i)
+          end
         end
         refs
       end
