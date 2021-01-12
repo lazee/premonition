@@ -1,4 +1,8 @@
 
+## 4.0.1
+
+- Fixed weird processor issue: https://github.com/lazee/premonition/pull/30 [Bugfix]
+
 ## 4.0.0
 
 - Support for Jekyll 4.x
