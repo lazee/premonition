@@ -43,7 +43,7 @@ Add the following line to your `Gemfile` inside your Jekyll project folder:
 
 ```
 group :jekyll_plugins do
-  gem "premonition", "4.0.0"
+  gem "premonition", "4.0.1"
 end
 ```
 
@@ -138,7 +138,7 @@ Error
 Citation (Note the use of attributes here)
 
 ```markdown
-> citations "Mark Twain" [ cite = "mt" ]
+> citation "Mark Twain" [ cite = "mt" ]
 > I will be a beautiful citation quote
 ```
 
