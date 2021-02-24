@@ -31,10 +31,13 @@ module Jekyll
           end
         end
 
+        Hooks.register [:documents], :pre_render do |doc|
+            doc.content = processor.adder(doc.content) if process?(resources, doc)
+        end
         Hooks.register [:pages], :pre_render do |doc|
           doc.content = processor.adder(doc.content) if process?(resources, doc)
         end
-      end
+    end
 
       private
 
