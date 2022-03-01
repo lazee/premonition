@@ -2,6 +2,7 @@
 
 module Jekyll
   module Premonition
+
     # Class that does all of the rendering magic within Premonition.
     class Processor
       def initialize(resources)
@@ -16,7 +17,7 @@ module Jekyll
       # content - Markdown content
       def adder(content)
         o = []
-        references = load_references(content)
+        references = ["\n"]
         b = nil
         is_code_block = false
         content.each_line do |l|
@@ -24,16 +25,18 @@ module Jekyll
           if is_code_block
             o << l
           elsif blockquote?(l) && empty_block?(b)
-            if (m = l.to_s.match(/^\s*\>\s+([a-z]+)\s+\"(.*)\"\s+(\[.*\])?\s*$/i))
+
+            if (m = l.match(/^\s*\>\s+([a-z]+)\s+\"(.*)\"\s+(\[.*\])?\s*$/i))
               y, t, attrs = m.captures
               b = { 'title' => t.strip, 'type' => y.strip.downcase, 'content' => [], 'attrs' => attrs }
             else
               o << l
             end
           elsif blockquote?(l) && !empty_block?(b)
-            b['content'] << l.to_s.match(/^\s*\>\s?(.*)$/i).captures[0]
+            b['content'] << l.match(/^\s*\>\s?(.*)$/i).captures[0]
           else
             if !blockquote?(l) && !empty_block?(b)
+              references = load_references(content)
               o << render_block(b, references)
               b = nil
             end
@@ -52,15 +55,15 @@ module Jekyll
       def load_references(content)
         refs = ["\n"]
         content.each_line do |l|
-          unless l.nil? || l == 0 || (l.is_a? String) 
-            refs << l if l.to_s.strip!.match(/^\[.*\]:.*\".*\"$/i)
-          end
+          # refs << l if l.strip!.match(/^\[.*\]:.*\".*\"$/i)
+
+          refs << l if l.strip.length>0 && l.strip.match(/^\[.*\]:.*\".*\"$/i)
         end
         refs
       end
 
       def code_block_line?(line)
-        line.strip.start_with?('~~~') || line.strip.start_with?('```')
+        line.strip.start_with?('~~~')
       end
 
       def blockquote?(line)
