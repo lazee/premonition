@@ -57,13 +57,13 @@ module Jekyll
         content.each_line do |l|
           # refs << l if l.strip!.match(/^\[.*\]:.*\".*\"$/i)
 
-          refs << l if l.strip.length>0 && l.strip.match(/^\[.*\]:.*\".*\"$/i)
+          refs << l if l.strip.length.positive? && l.strip.match(/^\[.*\]:.*\".*\"$/i)
         end
         refs
       end
 
       def code_block_line?(line)
-        line.strip.start_with?('~~~')
+        line.strip.start_with?('~~~') || line.strip.start_with?('```')
       end
 
       def blockquote?(line)

@@ -1,3 +1,7 @@
+## 4.0.2
+
+- Added collection support: https://github.com/lazee/premonition/pull/39 [Feature]
+- Upgraded packages and removed turn in order to work for newer package versions.
 
 ## 4.0.1
 
