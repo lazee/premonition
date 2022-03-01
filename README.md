@@ -17,6 +17,7 @@ By simply adding a custom header to the first line of a [block quote](https://gi
 - Easy to install
 - Comes with a default stylesheet (Sass/Css) and templates for beautiful messages boxes and citation.
 - Font Awesome 5 support
+- Support for Jekyll Collections (Added in 4.0.2)
 
 ## Version 4 Highlights
 
