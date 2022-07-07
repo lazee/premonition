@@ -234,7 +234,7 @@ to your head template file:
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
 ```
 
-Feel free to install it any other way you prefer, as long as you follow their
+Feel free to install it any other way you prefer, as long as you adhere to their
 [license](https://fontawesome.com/license/free).
 
 Now you can swith to Font Awesome for any of the default types by adding
