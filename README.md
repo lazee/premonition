@@ -13,7 +13,7 @@ By simply adding a custom header to the first line of a [block quote](https://gi
 ## Features
 
 - Highly customizable (Create your own styles and templates easily)
-- Non-intrusive - Its just Markdown!
+- Non-intrusive - It's just Markdown!
 - Easy to install
 - Comes with a default stylesheet (Sass/Css) and templates for beautiful messages boxes and citation.
 - Font Awesome 5 support
