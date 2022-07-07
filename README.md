@@ -111,7 +111,7 @@ Simple note with no header
 Note
 
 ```markdown
-> note "I am a not"
+> note "I am a note"
 > The body of the note goes here. Premonition allows you to write any `Markdown` inside the block.
 ```
 
