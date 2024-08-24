@@ -145,7 +145,7 @@ Citation (Note the use of attributes here)
 
 ## Configuration
 
-The templates can be customized in two eays. Either by replacing one of the default templates, or by adding a new type from scratch.
+The templates can be customized in two ways. Either by replacing one of the default templates, or by adding a new type from scratch.
 
 All this is done inside your `_config.yml`. Look at the [source code for our demo site](https://github.com/lazee/premonition-demo), for live examples on how configuration can be done.
 
